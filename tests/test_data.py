@@ -5,10 +5,10 @@ import pytest
 import yaml
 
 
-DATASETS = Path("reference_models").glob("*/data/*.csv")
+DATASETS = Path("reference_models/data").glob("*.csv")
 
 
-@pytest.mark.parametrize("dataset_path", DATASETS, ids=lambda path: "-".join(path.parts[-3::2]))
+@pytest.mark.parametrize("dataset_path", DATASETS, ids=lambda path: path.name)
 def test_dataset(dataset_path: Path) -> None:
     # Load the corresponding schema.
     schema_path = dataset_path.with_suffix(".schema.yaml")

@@ -1,8 +1,5 @@
 // Varying effects model for tadpole survival with shrinkage prior from page 403.
-data {
-    int n_tanks;
-    array [n_tanks] int density, surv;
-}
+#include data/reedfrogs.stan
 
 parameters {
     vector [n_tanks] a;

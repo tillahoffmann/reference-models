@@ -3,9 +3,10 @@ from reference_models import COLLECTIONS, sample
 
 
 SPECS = [
-    (collection, dataset, model) for collection, experiments in COLLECTIONS.items()
-    for dataset, models in experiments.items()
-    for model in models["stan_files"]
+    (collection, dataset, stan_file.with_suffix("").name)
+    for collection, experiments in COLLECTIONS.items()
+    for dataset, stan_files in experiments.items()
+    for stan_file in stan_files
 ]
 
 
