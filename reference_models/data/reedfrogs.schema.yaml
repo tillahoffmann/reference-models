@@ -5,6 +5,8 @@ description: >
   https://github.com/rmcelreath/rethinking/blob/2f01a9c/data/reedfrogs.csv. This schema is based on
   https://github.com/rmcelreath/rethinking/blob/2f01a9c/man/reedfrogs.Rd.
 type: array
+minLength: 48
+maxLength: 48
 items:
   type: object
   properties:
