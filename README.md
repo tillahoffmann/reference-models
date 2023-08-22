@@ -1,4 +1,4 @@
-# Reference Models
+# Reference Models [![Reference Models](https://github.com/tillahoffmann/reference-models/actions/workflows/main.yml/badge.svg)](https://github.com/tillahoffmann/reference-models/actions/workflows/main.yml)
 
 Reference implementation of Bayesian models in Stan from:
 
