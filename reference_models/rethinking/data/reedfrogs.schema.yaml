@@ -1,0 +1,35 @@
+# yaml-language-server: $schema=http://json-schema.org/draft-07/schema
+description: >
+  Tadpole mortality in different tanks described on page 401; the primary source is
+  https://doi.org/10.1890/04-0535. The data were obtained from
+  https://github.com/rmcelreath/rethinking/blob/2f01a9c/data/reedfrogs.csv. This schema is based on
+  https://github.com/rmcelreath/rethinking/blob/2f01a9c/man/reedfrogs.Rd.
+type: array
+items:
+  type: object
+  properties:
+    density:
+      type: integer
+      description: initial tadpole density (number of tadpoles in a 1.2 x 0.8 x 0.4 m tank)
+      exclusiveMinimum: 0
+    pred:
+      type: string
+      description: predators present or absent
+      enum:
+        - "no"
+        - pred
+    size:
+      type: string
+      description: size of tadpoles
+      enum:
+        - big
+        - small
+    surv:
+      type: integer
+      description: number of surviving tadpoles
+    propsurv:
+      type: number
+      description: fraction of surviving tadpoles
+      minimum: 0
+      maximum: 1
+  additionalProperties: false
