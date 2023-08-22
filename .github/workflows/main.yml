@@ -1,0 +1,34 @@
+name: Reference Models
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+  workflow_dispatch:
+
+env:
+  cmdstanVersion: "2.32.2"
+
+jobs:
+  build:
+    name: Reference Models
+    runs-on: "ubuntu-latest"
+    steps:
+      - uses: "actions/checkout@v3"
+      - uses: "actions/setup-python@v4"
+        with:
+          python-version: "3.10"
+          cache: pip
+      - name: Install python dependencies
+        run: pip install --no-dependencies -r requirements.txt
+      - uses: actions/cache@v3
+        with:
+          path: /home/runner/.cmdstan
+          key: cmdstan-${{ env.cmdstanVersion }}
+      - name: Install cmdstanpy
+        run: python -m cmdstanpy.install_cmdstan --version ${{ env.cmdstanVersion }}
+      - name: Lint the code
+        run: cook exec lint
+      - name: Run tests
+        run: cook exec tests
