@@ -1,0 +1,8 @@
+-e file:.
+cook-build
+flake8
+jsonschema
+pip-tools
+pytest
+pytest-cov
+pyaml

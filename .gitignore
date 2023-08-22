@@ -1,0 +1,8 @@
+*.egg-info
+*.hpp
+.cook
+.coverage*
+.DS_Store
+.vscode
+__pycache__
+venv/
