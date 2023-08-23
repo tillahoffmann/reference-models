@@ -16,5 +16,6 @@ EXPERIMENTS = {
     ],
     "trolley": [
         ROOT / "chapter_12/m12-4.stan",
+        ROOT / "chapter_12/m12-5.stan",
     ]
 }

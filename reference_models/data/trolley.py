@@ -8,4 +8,7 @@ def load_data() -> dict:
         "n_experiments": len(raw),
         "n_responses": raw.response.nunique(),
         "response": raw.response,
+        "action": raw.action,
+        "contact": raw.contact,
+        "intention": raw.intention,
     }
