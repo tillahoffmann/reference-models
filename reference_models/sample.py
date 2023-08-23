@@ -1,5 +1,6 @@
 import argparse
 import cmdstanpy
+from datetime import datetime
 from pathlib import Path
 import shutil
 from typing import Dict
@@ -55,8 +56,10 @@ def __main__(argv: dict | None = None) -> None:
     stanc_options = {"include-paths": [Path(__file__).parent]}
     model = cmdstanpy.CmdStanModel(stan_file=stan_file, stanc_options=stanc_options)
     data = DATA_LOADERS[args.dataset]()
+    start = datetime.now()
     fit = model.sample(data, seed=args.seed, chains=args.chains, iter_warmup=args.iter_warmup,
                        iter_sampling=args.iter_sampling)
+    end = datetime.now()
 
     # Save CSV files for later use.
     src_info = model.src_info()
@@ -65,8 +68,16 @@ def __main__(argv: dict | None = None) -> None:
         if args.output.is_dir():
             shutil.rmtree(args.output)
         fit.save_csvfiles(args.output)
-        with open(args.output / "src_info.yaml", "w") as fp:
-            yaml.dump(src_info, fp)
+        with open(args.output / "metadata.yaml", "w") as fp:
+            kwargs = {
+                key: str(value) if isinstance(value, Path) else value for key, value in
+                vars(args).items() if key != "stan_file_by_model"
+            }
+            yaml.dump({
+                "args": kwargs,
+                "src_info": src_info,
+                "duration": (end - start).total_seconds(),
+            }, fp)
 
     # Display summary information for "raw" parameters.
     if args.summary:

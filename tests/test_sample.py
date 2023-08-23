@@ -19,7 +19,7 @@ def test_sample(collection: str, dataset: str, model: str, tmp_path: Path) -> No
     sample.__main__(args)
 
     assert isinstance(cmdstanpy.from_csv(tmp_path), cmdstanpy.CmdStanMCMC)
-    assert (tmp_path / "src_info.yaml").is_file()
+    assert (tmp_path / "metadata.yaml").is_file()
 
 
 def test_no_unused_stan_file() -> None:

@@ -8,8 +8,9 @@ import yaml
 
 
 class Args:
-    method: str
     all: bool
+    method: str
+    output: Path | None
     samples: Path
 
 
@@ -19,24 +20,31 @@ def __main__(argv: List[str] | None = None) -> None:
                         choices={"nmi", "corrcoef"}, default="corrcoef")
     parser.add_argument("--all", help="show all quantities instead of just 'raw' parameters",
                         action="store_true")
+    parser.add_argument("--output", help="path to write the dependence heatmap figure to",
+                        type=Path)
     parser.add_argument("samples", help="directory of samples", type=Path)
     args: Args = parser.parse_args(argv)
 
     # Load samples and source info.
     fit = cmdstanpy.from_csv(args.samples)
-    with (args.samples / "src_info.yaml").open() as fp:
-        src_info = yaml.safe_load(fp)
+    with (args.samples / "metadata.yaml").open() as fp:
+        metadata = yaml.safe_load(fp)
 
     # Obtain samples.
     samples = fit.stan_variables()
     if not args.all:
+        src_info = metadata["src_info"]
         samples = {key: value for key, value in samples.items() if key in src_info["parameters"]}
 
     # Plot the heatmap.
     fig, ax = plt.subplots()
     im = dependence_heatmap(samples, method=args.method, ax=ax)
     fig.colorbar(im, ax=ax, label=args.method)
-    plt.show(block=True)
+    fig.tight_layout()
+    if args.output:
+        fig.savefig(args.output)
+    else:
+        plt.show(block=True)
 
 
 if __name__ == "__main__":
