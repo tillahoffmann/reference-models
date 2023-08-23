@@ -2,7 +2,9 @@
 cook-build
 flake8
 jsonschema
+matplotlib
 pip-tools
 pytest
 pytest-cov
 pyaml
+git+https://github.com/tillahoffmann/snippets.git@a653161
