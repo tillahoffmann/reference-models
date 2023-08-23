@@ -2,6 +2,7 @@
 cook-build
 flake8
 jsonschema
+jupyter
 matplotlib
 pip-tools
 pytest
