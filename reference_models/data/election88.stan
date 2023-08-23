@@ -8,4 +8,7 @@ data {
     array [n_responses] int<lower=1, upper=n_states> state;
     array [n_responses] int<lower=1, upper=n_regions> region_full;
     vector<lower=0, upper=1> [n_responses] v_prev_full;
+
+    vector<lower=0, upper=1> [n_states] v_prev;
+    array [n_states] int <lower=1, upper=n_regions> region;
 }
