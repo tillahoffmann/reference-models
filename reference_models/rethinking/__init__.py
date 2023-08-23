@@ -4,6 +4,7 @@ from pathlib import Path
 ROOT = Path(__file__).parent
 EXPERIMENTS = {
     "chimpanzees": [
+        ROOT / "chapter_11/m11-4.stan",
         ROOT / "chapter_13/m13-4.stan",
         ROOT / "chapter_13/m13-5.stan",
     ],
