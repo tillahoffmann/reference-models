@@ -1,7 +1,9 @@
 import argparse
 import cmdstanpy
 from pathlib import Path
+import shutil
 from typing import Dict
+import yaml
 
 from . import COLLECTIONS
 from .data import DATA_LOADERS
@@ -14,6 +16,7 @@ class Args:
     iter_sampling: int | None
     iter_warmup: int | None
     model: str
+    output: Path | None
     stan_file_by_model: Dict[str, Path]
     summary: bool
 
@@ -25,6 +28,7 @@ def __main__(argv: dict | None = None) -> None:
     parser.add_argument("--iter-sampling", help="number of posterior samples per chain", type=int)
     parser.add_argument("--iter-warmup", help="number of warmup samples per chain", type=int)
     parser.add_argument("--summary", action="store_true", help="display summary")
+    parser.add_argument("--output", "-o", help="path to output directory for CSV files", type=Path)
 
     # First level: the collection.
     collection_subparsers = parser.add_subparsers(required=True)
@@ -52,8 +56,16 @@ def __main__(argv: dict | None = None) -> None:
     fit = model.sample(data, chains=args.chains, iter_warmup=args.iter_warmup,
                        iter_sampling=args.iter_sampling)
 
+    # Display information and save samples.
     if args.summary:
         print(fit.summary())
+    if args.output:
+        # Remove the directory if it exists to avoid conflicting samples from different runs.
+        if args.output.is_dir():
+            shutil.rmtree(args.output)
+        fit.save_csvfiles(args.output)
+        with open(args.output / "src_info.yaml", "w") as fp:
+            yaml.dump(model.src_info(), fp)
 
 
 if __name__ == "__main__":

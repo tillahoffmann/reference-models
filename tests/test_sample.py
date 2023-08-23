@@ -1,3 +1,4 @@
+import cmdstanpy
 from pathlib import Path
 import pytest
 from reference_models import COLLECTIONS, sample
@@ -12,10 +13,13 @@ SPECS = [
 
 
 @pytest.mark.parametrize("collection, dataset, model", SPECS)
-def test_sample(collection: str, dataset: str, model: str) -> None:
-    args = ["--chains=1", "--iter-warmup=10", "--iter-sampling=5", "--summary", collection, dataset,
-            model]
+def test_sample(collection: str, dataset: str, model: str, tmp_path: Path) -> None:
+    args = ["--chains=1", "--iter-warmup=10", "--iter-sampling=5", "--summary", "--output",
+            str(tmp_path), collection, dataset, model]
     sample.__main__(args)
+
+    assert isinstance(cmdstanpy.from_csv(tmp_path), cmdstanpy.CmdStanMCMC)
+    assert (tmp_path / "src_info.yaml").is_file()
 
 
 def test_no_unused_stan_file() -> None:
