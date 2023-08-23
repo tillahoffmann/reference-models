@@ -12,4 +12,5 @@ SPECS = [
 
 @pytest.mark.parametrize("collection, dataset, model", SPECS)
 def test_sample(collection: str, dataset: str, model: str) -> None:
-    sample.__main__([collection, dataset, model])
+    args = ["--chains=1", "--iter-warmup=10", "--iter-sampling=5", collection, dataset, model]
+    sample.__main__(args)
