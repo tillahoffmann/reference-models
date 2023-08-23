@@ -1,0 +1,61 @@
+# yaml-language-server: $schema=http://json-schema.org/draft-07/schema
+description: >
+  Outcomes of CBS News polls from the 10 days immediately preceeding the 1988 US presidential
+  election described on pages 4--5 of "Data Analysis Using Regression and Multilevel/Hierarchical
+  Models". The data were obtained from
+  http://www.stat.columbia.edu/~gelman/arm/examples/election88/census88.dta and converted to CSV for
+  interoperability.
+type: array
+minLength: 11565
+maxLength: 11565
+items:
+  type: object
+  properties:
+    y:
+      type: integer
+      description: respondent supports George Bush (1) or Michael Dukakis (0)
+      minimum: 0
+      maximum: 1
+    black:
+      type: integer
+      description: respondent is black
+      minimum: 0
+      maximum: 1
+    female:
+      type: integer
+      description: respondent is female
+      minimum: 0
+      maximum: 1
+    age:
+      type: integer
+      description: age category of the respondent (18--29, 30--44, 45--64, 65+)
+      minimum: 1
+      maximum: 4
+    edu:
+      type: integer
+      description: >
+        education level of respondent (less than high school, high school, some college, college
+        graduate)
+      minimum: 1
+      maximum: 4
+    age_edu:
+      type: integer
+      description: cross-classified age-education interaction `4 * (age - 1) + edu`
+      minimum: 1
+      maximum: 16
+    state:
+      type: integer
+      description: state indicator of respondent residence
+      minimum: 1
+      maximum: 51
+    region_full:
+      type: integer
+      description: region indicator of respondent residence (Northeast, Midwest, South, West, DC)
+      minimum: 1
+      maximum: 5
+    v_prev_full:
+      type: number
+      description: Republican share of the vote for president in the state in the previous election
+      minimum: 0
+      maximum: 1
+  additionalProperties: false
