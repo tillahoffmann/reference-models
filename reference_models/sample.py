@@ -25,13 +25,13 @@ def __main__(argv: dict | None = None) -> None:
     parser.add_argument("--iter-warmup", help="number of warmup samples per chain", type=int)
 
     # First level: the collection.
-    collection_subparsers = parser.add_subparsers()
+    collection_subparsers = parser.add_subparsers(required=True)
     for collection, experiments in COLLECTIONS.items():
         collection_subparser = collection_subparsers.add_parser(collection)
         collection_subparser.set_defaults(collection=collection)
 
         # Second level: the dataset.
-        dataset_subparsers = collection_subparser.add_subparsers()
+        dataset_subparsers = collection_subparser.add_subparsers(required=True)
         for dataset, stan_files in experiments.items():
             dataset_subparser = dataset_subparsers.add_parser(dataset)
             stan_file_by_model = \
