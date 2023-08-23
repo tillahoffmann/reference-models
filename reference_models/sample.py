@@ -56,16 +56,21 @@ def __main__(argv: dict | None = None) -> None:
     fit = model.sample(data, chains=args.chains, iter_warmup=args.iter_warmup,
                        iter_sampling=args.iter_sampling)
 
-    # Display information and save samples.
+    # Display summary information for "raw" parameters.
+    src_info = model.src_info()
     if args.summary:
-        print(fit.summary())
+        summary = fit.summary()
+        fltr = summary.index.map(lambda name: name.split("[")[0] in src_info["parameters"])
+        print(summary[fltr])
+
+    # Save CSV files for later use.
     if args.output:
         # Remove the directory if it exists to avoid conflicting samples from different runs.
         if args.output.is_dir():
             shutil.rmtree(args.output)
         fit.save_csvfiles(args.output)
         with open(args.output / "src_info.yaml", "w") as fp:
-            yaml.dump(model.src_info(), fp)
+            yaml.dump(src_info, fp)
 
 
 if __name__ == "__main__":
