@@ -8,8 +8,11 @@ from .data import DATA_LOADERS
 
 
 class Args:
+    chains: int | None
     collection: str
     dataset: str
+    iter_sampling: int | None
+    iter_warmup: int | None
     model: str
     stan_file_by_model: Dict[str, Path]
 
@@ -17,6 +20,9 @@ class Args:
 def __main__(argv: dict | None = None) -> None:
     # Construct hierarchical parsers.
     parser = argparse.ArgumentParser()
+    parser.add_argument("--chains", help="number of chains", type=int)
+    parser.add_argument("--iter-sampling", help="number of posterior samples per chain", type=int)
+    parser.add_argument("--iter-warmup", help="number of warmup samples per chain", type=int)
 
     # First level: the collection.
     collection_subparsers = parser.add_subparsers()
@@ -41,7 +47,8 @@ def __main__(argv: dict | None = None) -> None:
     stanc_options = {"include-paths": [Path(__file__).parent]}
     model = cmdstanpy.CmdStanModel(stan_file=stan_file, stanc_options=stanc_options)
     data = DATA_LOADERS[args.dataset]()
-    fit = model.sample(data)
+    fit = model.sample(data, chains=args.chains, iter_warmup=args.iter_warmup,
+                       iter_sampling=args.iter_sampling)
     print(fit.diagnose())
 
 
