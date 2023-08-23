@@ -7,6 +7,7 @@ EXPERIMENTS = {
         ROOT / "chapter_11/m11-4.stan",
         ROOT / "chapter_13/m13-4.stan",
         ROOT / "chapter_13/m13-5.stan",
+        ROOT / "chapter_13/m13-6.stan",
     ],
     "reedfrogs": [
         ROOT / "chapter_13/m13-1.stan",
