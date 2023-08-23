@@ -32,3 +32,5 @@ jobs:
         run: cook exec lint
       - name: Run tests
         run: cook exec tests
+      - name: Draw samples for one model to check `recipe.py`
+        run: cook exec rethinking:chapter_11:m11-4
