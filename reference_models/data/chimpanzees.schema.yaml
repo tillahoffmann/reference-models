@@ -1,0 +1,62 @@
+# yaml-language-server: $schema=http://json-schema.org/draft-07/schema
+description: >
+  Prosocial behavior (or lack thereof) among seven chimpanzees described on page 325; the primary
+  source is https://doi.org/10.1038/nature04243. The data were obtained from
+  https://github.com/rmcelreath/rethinking/blob/2f01a9c/data/chimpanzees.csv. This schema is based
+  on https://github.com/rmcelreath/rethinking/blob/2f01a9c/man/chimpanzees.Rd. The `recipient`
+  identifier has been re-coded by subtracting `1` as discussed in
+  https://github.com/rmcelreath/rethinking/issues/340.
+type: array
+# There are seven chimpanzees who can be paired as actor and possible recipient in 6 * 7 = 42
+# different ways. Each experiment *with* a recipient is interleaved with an experiment *without* a
+# recipient, giving rise to another 42 configurations for a total of 84. This setup is repeated over
+# the course of six days for a total of 6 * 84 = 504 records.
+minLength: 504
+maxLength: 504
+items:
+  type: object
+  properties:
+    actor:
+      type: integer
+      description: identifier of the actor
+      minimum: 1
+      maximum: 7
+    recipient:
+      description: identifier of the recipient
+      oneOf:
+        - type: integer
+          minimum: 1
+          maximum: 7
+        # If no recipient is present.
+        - type: "null"
+    condition:
+      type: integer
+      description: if a potential recipient is present (derived from `recipient`)
+      minimum: 0
+      maximum: 1
+    block:
+      type: integer
+      description: identifier for a block of trials performed on the same day
+      minimum: 1
+      maximum: 6
+    trial:
+      type: integer
+      description: sequence number for the experiment for each actor
+      minimum: 1
+      maximum: 84
+    prosoc_left:
+      type: integer
+      description: if the left lever represents the prosocial option
+      minimum: 0
+      maximum: 1
+    chose_prosoc:
+      type: integer
+      description: if the actor chose the prosocial option (derived from `pulled_left` and `prosoc_left`)
+      minimum: 0
+      maximum: 1
+    pulled_left:
+      type: integer
+      description: if the actor pulled the left lever
+      minimum: 0
+      maximum: 1
+  additionalProperties: false
