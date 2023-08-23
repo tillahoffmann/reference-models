@@ -15,6 +15,7 @@ class Args:
     iter_warmup: int | None
     model: str
     stan_file_by_model: Dict[str, Path]
+    summary: bool
 
 
 def __main__(argv: dict | None = None) -> None:
@@ -23,6 +24,7 @@ def __main__(argv: dict | None = None) -> None:
     parser.add_argument("--chains", help="number of chains", type=int)
     parser.add_argument("--iter-sampling", help="number of posterior samples per chain", type=int)
     parser.add_argument("--iter-warmup", help="number of warmup samples per chain", type=int)
+    parser.add_argument("--summary", action="store_true", help="display summary")
 
     # First level: the collection.
     collection_subparsers = parser.add_subparsers(required=True)
@@ -49,7 +51,9 @@ def __main__(argv: dict | None = None) -> None:
     data = DATA_LOADERS[args.dataset]()
     fit = model.sample(data, chains=args.chains, iter_warmup=args.iter_warmup,
                        iter_sampling=args.iter_sampling)
-    print(fit.diagnose())
+
+    if args.summary:
+        print(fit.summary())
 
 
 if __name__ == "__main__":
