@@ -17,6 +17,7 @@ class Args:
     iter_warmup: int | None
     model: str
     output: Path | None
+    seed: int | None
     stan_file_by_model: Dict[str, Path]
     summary: bool
 
@@ -24,6 +25,7 @@ class Args:
 def __main__(argv: dict | None = None) -> None:
     # Construct hierarchical parsers.
     parser = argparse.ArgumentParser()
+    parser.add_argument("--seed", help="random number generator seed", type=int)
     parser.add_argument("--chains", help="number of chains", type=int)
     parser.add_argument("--iter-sampling", help="number of posterior samples per chain", type=int)
     parser.add_argument("--iter-warmup", help="number of warmup samples per chain", type=int)
@@ -53,19 +55,24 @@ def __main__(argv: dict | None = None) -> None:
     stanc_options = {"include-paths": [Path(__file__).parent]}
     model = cmdstanpy.CmdStanModel(stan_file=stan_file, stanc_options=stanc_options)
     data = DATA_LOADERS[args.dataset]()
-    fit = model.sample(data, chains=args.chains, iter_warmup=args.iter_warmup,
+    fit = model.sample(data, seed=args.seed, chains=args.chains, iter_warmup=args.iter_warmup,
                        iter_sampling=args.iter_sampling)
 
-    # Display information and save samples.
-    if args.summary:
-        print(fit.summary())
+    # Save CSV files for later use.
+    src_info = model.src_info()
     if args.output:
         # Remove the directory if it exists to avoid conflicting samples from different runs.
         if args.output.is_dir():
             shutil.rmtree(args.output)
         fit.save_csvfiles(args.output)
         with open(args.output / "src_info.yaml", "w") as fp:
-            yaml.dump(model.src_info(), fp)
+            yaml.dump(src_info, fp)
+
+    # Display summary information for "raw" parameters.
+    if args.summary:
+        summary = fit.summary()
+        fltr = summary.index.map(lambda name: name.split("[")[0] in src_info["parameters"])
+        print(summary[fltr])
 
 
 if __name__ == "__main__":

@@ -1,5 +1,6 @@
 *.egg-info
 *.hpp
+*.ipynb
 *.tmp
 *~
 .cook
@@ -7,5 +8,6 @@
 .DS_Store
 .vscode
 __pycache__
+playground/
 samples/
 venv/

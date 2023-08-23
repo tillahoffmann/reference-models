@@ -1,3 +1,4 @@
+import numpy as np
 import pandas as pd
 from pathlib import Path
 
@@ -7,6 +8,16 @@ from .util import check_consecutive_labels, get_consecutive_labels
 def load_data() -> dict:
     raw = pd.read_csv(Path(__file__).parent / "election88.csv")
     state = get_consecutive_labels(raw.state)
+
+    # Evaluate v_prev and region (state level) from v_prev_full and region_full (expanded to
+    # response level). Both are required by model hierarchical/m2.stan due to the centered
+    # parameterization.
+    groups = raw.groupby("state")
+    np.testing.assert_array_equal(groups.v_prev_full.nunique(), 1)
+    v_prev = groups.v_prev_full.max()
+    np.testing.assert_array_equal(groups.region_full.nunique(), 1)
+    region = groups.region_full.max()
+
     return {
         "n_responses": len(raw),
         "n_states": raw.state.nunique(),
@@ -22,4 +33,7 @@ def load_data() -> dict:
         "state": state,
         "region_full": check_consecutive_labels(raw.region_full),
         "v_prev_full": raw.v_prev_full,
+
+        "v_prev": v_prev,
+        "region": region,
     }
