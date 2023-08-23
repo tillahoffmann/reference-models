@@ -15,6 +15,7 @@ transformed parameters {
 
 model {
     pulled_left ~ bernoulli_logit(logits);
+    a_bar ~ normal(0, 1.5);
     a ~ normal(a_bar, sigma_a);
     b ~ normal(0, 0.5);
     g ~ normal(0, sigma_g);
