@@ -26,7 +26,8 @@ with create_group("samples"):
                 path = stan_file.relative_to(package_path).with_suffix("")
                 output_directory = "samples" / path
                 target = output_directory / "src_info.yaml"
-                action = ["python", "-m", "reference_models.sample", "--output", output_directory]
+                action = ["python", "-m", "reference_models.sample", "--summary", "--output",
+                          output_directory]
                 if IN_CI:
                     action.extend(["--iter-sampling", 5, "--iter-warmup", 10, "--chains", 1])
                 action.extend([collection, dataset, path.name])

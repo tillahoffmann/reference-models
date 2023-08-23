@@ -8,5 +8,6 @@ setup(
     install_requires=[
         "cmdstanpy",
         "pandas",
+        "scikit-learn",
     ],
 )

@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=http://json-schema.org/draft-07/schema
 description: >
   Questions of morality using the classic example of an actor being able to divert a trolley with
-  two undesirable outcomes as described on page 381; the primary source is
+  two undesirable outcomes as described on page 381 of "Statistical Rethinking"; the primary source is
   https://doi.org/10.1111/j.1467-9280.2006.01834.x. The data were obtained from
   https://github.com/rmcelreath/rethinking/blob/2f01a9c/data/Trolley.csv. This schema is based on
   https://github.com/rmcelreath/rethinking/blob/2f01a9c/man/Trolley.Rd.
