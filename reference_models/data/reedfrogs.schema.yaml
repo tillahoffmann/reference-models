@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=http://json-schema.org/draft-07/schema
 description: >
-  Tadpole mortality in different tanks described on page 401; the primary source is
-  https://doi.org/10.1890/04-0535. The data were obtained from
+  Tadpole mortality in different tanks described on page 401 of "Statistical Rethinking"; the
+  primary source is https://doi.org/10.1890/04-0535. The data were obtained from
   https://github.com/rmcelreath/rethinking/blob/2f01a9c/data/reedfrogs.csv. This schema is based on
   https://github.com/rmcelreath/rethinking/blob/2f01a9c/man/reedfrogs.Rd.
 type: array

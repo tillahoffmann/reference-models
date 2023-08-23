@@ -1,9 +1,9 @@
 # yaml-language-server: $schema=http://json-schema.org/draft-07/schema
 description: >
-  Prosocial behavior (or lack thereof) among seven chimpanzees described on page 325; the primary
-  source is https://doi.org/10.1038/nature04243. The data were obtained from
-  https://github.com/rmcelreath/rethinking/blob/2f01a9c/data/chimpanzees.csv. This schema is based
-  on https://github.com/rmcelreath/rethinking/blob/2f01a9c/man/chimpanzees.Rd. The `recipient`
+  Prosocial behavior (or lack thereof) among seven chimpanzees described on page 325 of "Statistical
+  Rethinking"; the primary source is https://doi.org/10.1038/nature04243. The data were obtained
+  from https://github.com/rmcelreath/rethinking/blob/2f01a9c/data/chimpanzees.csv. This schema is
+  based on https://github.com/rmcelreath/rethinking/blob/2f01a9c/man/chimpanzees.Rd. The `recipient`
   identifier has been re-coded by subtracting `1` as discussed in
   https://github.com/rmcelreath/rethinking/issues/340.
 type: array
