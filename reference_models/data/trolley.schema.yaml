@@ -1,0 +1,96 @@
+# yaml-language-server: $schema=http://json-schema.org/draft-07/schema
+description: >
+  Questions of morality using the classic example of an actor being able to divert a trolley with
+  two undesirable outcomes as described on page 381; the primary source is
+  https://doi.org/10.1111/j.1467-9280.2006.01834.x. The data were obtained from
+  https://github.com/rmcelreath/rethinking/blob/2f01a9c/data/Trolley.csv. This schema is based on
+  https://github.com/rmcelreath/rethinking/blob/2f01a9c/man/Trolley.Rd.
+type: array
+minLength: 9930
+maxLength: 9930
+items:
+  type: object
+  properties:
+    case:
+      type: string
+      description: cross-classified identifier derived from `contact` and `story` labels
+    response:
+      type: integer
+      description: participant's rating of appropriateness of action in story
+      minimum: 1
+      maximum: 7
+    order:
+      type: integer
+      description: order in which the story was presented to the participant
+      minimum: 1
+      maximum: 32
+    id:
+      type: string
+      description: participant identifier
+    age:
+      type: integer
+      description: participant's age in years
+      minimum: 10
+      maximum: 72
+    male:
+      type: integer
+      description: indicator for the participant being male (1) or female (0)
+      minimum: 0
+      maximum: 1
+    edu:
+      type: string
+      description: participant's highest level of education
+      enum:
+      - Elementary School
+      - Middle School
+      - Some High School
+      - High School Graduate
+      - Some College
+      - Bachelor's Degree
+      - Master's Degree
+      - Graduate Degree
+    action:
+      type: integer
+      description: >
+        story invokes the action principle---harm caused by action is morally worse than equivalent
+        harm caused by omission
+      minimum: 0
+      maximum: 1
+    intention:
+      type: integer
+      description: >
+        story invokes the intention principle---harm intended as the means to a goal is morally
+        worse than equivalent harm foreseen as the side effect of a goal
+      minimum: 0
+      maximum: 1
+    contact:
+      type: integer
+      description: >
+        story invokes the contact principle---using physical contact to cause harm to a victim is
+        morally worse than causing equivalent harm to a victim without using physical contact
+      minimum: 0
+      maximum: 1
+    story:
+      type: string
+      description: >
+        identifier for basic scenario modified by the three treatment principles of action,
+        intention, and contact
+      enum:
+        - aqu
+        - boa
+        - box
+        - bur
+        - car
+        - che
+        - pon
+        - rub
+        - sha
+        - shi
+        - spe
+        - swi
+    action2:
+      type: integer
+      description: alternative coding of action that is union of action and contact variables
+      minimum: 0
+      maximum: 1
+  additionalProperties: false
