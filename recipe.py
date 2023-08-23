@@ -34,7 +34,7 @@ with create_group("samples"):
             for stan_file in stan_files:
                 path = stan_file.relative_to(package_path).with_suffix("")
                 output_directory = "samples" / path
-                target = output_directory / "src_info.yaml"
+                target = output_directory / "metadata.yaml"
                 action = [
                     "python", "-m", "reference_models.sample", "--summary", "--output",
                     output_directory, "--seed", 2576, "--iter-sampling", iter_sampling,

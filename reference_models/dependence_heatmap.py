@@ -24,12 +24,13 @@ def __main__(argv: List[str] | None = None) -> None:
 
     # Load samples and source info.
     fit = cmdstanpy.from_csv(args.samples)
-    with (args.samples / "src_info.yaml").open() as fp:
-        src_info = yaml.safe_load(fp)
+    with (args.samples / "metadata.yaml").open() as fp:
+        metadata = yaml.safe_load(fp)
 
     # Obtain samples.
     samples = fit.stan_variables()
     if not args.all:
+        src_info = metadata["src_info"]
         samples = {key: value for key, value in samples.items() if key in src_info["parameters"]}
 
     # Plot the heatmap.
