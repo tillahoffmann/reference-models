@@ -2,7 +2,9 @@
 description: >
   Psychological experiment of pilots on flight simulators, with 40 data points corresponding to 5
   treatment conditions and 8 different airports described on page 289 of "Data Analysis Using
-  Regression and Multilevel/Hierarchical Models". The data were obtained from
+  Regression and Multilevel/Hierarchical Models"; the primary source is "New Airline Pilots May Not
+  Receive Sufficient Training to Cope With Airplane Upsets" in
+  https://flightsafety.org/fsd/fsd_jul-aug03.pdf. The data were obtained from
   http://www.stat.columbia.edu/~gelman/arm/examples/pilots/pilots.dat and converted to CSV for
   interoperability.
 type: array
