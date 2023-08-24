@@ -3,7 +3,7 @@ description: >
   Outcomes of CBS News polls from the 10 days immediately preceeding the 1988 US presidential
   election described on pages 4--5 of "Data Analysis Using Regression and Multilevel/Hierarchical
   Models". The data were obtained from
-  http://www.stat.columbia.edu/~gelman/arm/examples/election88/census88.dta and converted to CSV for
+  http://www.stat.columbia.edu/~gelman/arm/examples/election88/election88.dta and converted to CSV for
   interoperability.
 type: array
 minLength: 11565
