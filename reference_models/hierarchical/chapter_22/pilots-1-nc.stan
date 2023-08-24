@@ -6,17 +6,18 @@
 parameters {
     real mu;
     vector [n_groups] g_raw;
-    vector [n_scenarios] d;
+    vector [n_scenarios] d_raw;
     real<lower=0, upper=100> sigma_d, sigma_g, sigma_e;
 }
 
 transformed parameters {
     vector [n_groups] g = sigma_g * g_raw;
+    vector [n_scenarios] d = sigma_d * d_raw;
     vector [n] y_hat = mu + g[group] + d[scenario];
 }
 
 model {
     y ~ normal(y_hat, sigma_e);
     g_raw ~ normal(0, 1);
-    d ~ normal(0, sigma_d);
+    d_raw ~ normal(0, 1);
 }
