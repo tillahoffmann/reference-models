@@ -32,7 +32,7 @@ with create_group("samples"):
     for collection, experiments in COLLECTIONS.items():
         for name, experiment in experiments.items():
             stan_file = experiment.stan_file
-            path = stan_file.relative_to(package_path).with_suffix("")
+            path = stan_file.relative_to(package_path).parent / name
             output_directory = "samples" / path
 
             # Draw posterior samples.

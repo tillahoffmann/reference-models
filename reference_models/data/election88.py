@@ -5,8 +5,16 @@ from pathlib import Path
 from .util import check_consecutive_labels, get_consecutive_labels
 
 
-def load_data() -> dict:
+def load_data(remove_dc: bool = False) -> dict:
+    """
+    Load CBS Press poll data for the 1988 presidential election.
+
+    Args:
+        remove_dc: Remove Washington DC (state 9 in the CSV file).
+    """
     raw = pd.read_csv(Path(__file__).parent / "election88.csv")
+    if remove_dc:
+        raw = raw[raw.state != 9]
     state = get_consecutive_labels(raw.state)
 
     # Evaluate v_prev and region (state level) from v_prev_full and region_full (expanded to
