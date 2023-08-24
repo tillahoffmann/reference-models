@@ -1,15 +1,15 @@
 from pathlib import Path
 
+from ..data import election88, pilots
+from ..util import Experiment, experiment_to_dict
 
-ROOT = Path(__file__).parent
-EXPERIMENTS = {
-    "election88": [
-        ROOT / "chapter_14/m1.stan",
-        ROOT / "chapter_14/m2.stan",
-        ROOT / "chapter_14/m2-nc.stan",
-    ],
-    "pilots": [
-        ROOT / "chapter_22/pilots-1.stan",
-        ROOT / "chapter_22/pilots-1-nc.stan",
-    ],
-}
+
+EXPERIMENTS = experiment_to_dict(
+    Experiment("chapter_14/m1.stan", election88.load_data),
+    Experiment("chapter_14/m2.stan", election88.load_data),
+    Experiment("chapter_14/m2-nc.stan", election88.load_data),
+
+    Experiment("chapter_22/pilots-1.stan", pilots.load_data),
+    Experiment("chapter_22/pilots-1-nc.stan", pilots.load_data),
+    root=Path(__file__).parent,
+)
