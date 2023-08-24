@@ -1,30 +1,26 @@
 import argparse
-import cmdstanpy
-from datetime import datetime
 from pathlib import Path
 import shutil
 from typing import Dict
 import yaml
 
 from . import COLLECTIONS
-from .data import DATA_LOADERS
+from .util import Experiment
 
 
 class Args:
     chains: int | None
-    collection: str
-    dataset: str
     iter_sampling: int | None
     iter_warmup: int | None
-    model: str
     output: Path | None
     seed: int | None
-    stan_file_by_model: Dict[str, Path]
+    experiment: str
+    experiments: Dict[str, Experiment]
     summary: bool
 
 
 def __main__(argv: dict | None = None) -> None:
-    # Construct hierarchical parsers.
+    # Construct a hierarchical parser for different collections of models.
     parser = argparse.ArgumentParser()
     parser.add_argument("--seed", help="random number generator seed", type=int)
     parser.add_argument("--chains", help="number of chains", type=int)
@@ -33,33 +29,19 @@ def __main__(argv: dict | None = None) -> None:
     parser.add_argument("--summary", action="store_true", help="display summary")
     parser.add_argument("--output", "-o", help="path to output directory for CSV files", type=Path)
 
-    # First level: the collection.
     collection_subparsers = parser.add_subparsers(required=True)
     for collection, experiments in COLLECTIONS.items():
         collection_subparser = collection_subparsers.add_parser(collection)
-        collection_subparser.set_defaults(collection=collection)
-
-        # Second level: the dataset.
-        dataset_subparsers = collection_subparser.add_subparsers(required=True)
-        for dataset, stan_files in experiments.items():
-            dataset_subparser = dataset_subparsers.add_parser(dataset)
-            stan_file_by_model = \
-                {stan_file.with_suffix("").name: stan_file for stan_file in stan_files}
-            dataset_subparser.set_defaults(dataset=dataset, stan_file_by_model=stan_file_by_model)
-            dataset_subparser.add_argument("model", choices=stan_file_by_model)
+        collection_subparser.add_argument("experiment", choices=experiments)
+        collection_subparser.set_defaults(experiments=experiments)
 
     # Parse the arguments and identify the experiment.
     args: Args = parser.parse_args(argv)
+    experiment = args.experiments[args.experiment]
 
     # Compile the model and draw samples.
-    stan_file = args.stan_file_by_model[args.model]
-    stanc_options = {"include-paths": [Path(__file__).parent]}
-    model = cmdstanpy.CmdStanModel(stan_file=stan_file, stanc_options=stanc_options)
-    data = DATA_LOADERS[args.dataset]()
-    start = datetime.now()
-    fit = model.sample(data, seed=args.seed, chains=args.chains, iter_warmup=args.iter_warmup,
-                       iter_sampling=args.iter_sampling)
-    end = datetime.now()
+    model, fit = experiment.run(seed=args.seed, chains=args.chains, iter_warmup=args.iter_warmup,
+                                iter_sampling=args.iter_sampling)
 
     # Save CSV files for later use.
     src_info = model.src_info()
@@ -71,12 +53,11 @@ def __main__(argv: dict | None = None) -> None:
         with open(args.output / "metadata.yaml", "w") as fp:
             kwargs = {
                 key: str(value) if isinstance(value, Path) else value for key, value in
-                vars(args).items() if key != "stan_file_by_model"
+                vars(args).items() if key != "experiments"
             }
             yaml.dump({
                 "args": kwargs,
                 "src_info": src_info,
-                "duration": (end - start).total_seconds(),
             }, fp)
 
     # Display summary information for "raw" parameters.
