@@ -1,15 +1,13 @@
 // Hierarchical linear regression for forecasting presidential elections based on page 387.
+functions {
+    #include util.stan
+}
 
 #include data/presidential.stan
 
 transformed data {
-    // Obtain cross-classified region-year indicators. We ensure the first n_year elements
-    // correspond to the South because the model uses a different hierarchical variance parameter.
-    int n_region_year = n_regions * n_years;
-    array [n] int<lower=1, upper=n_region_year> region_year;
-    for (i in 1:n) {
-        region_year[i] = n_years * (region[i] - 1) + year[i];
-    }
+    // Obtain cross-classified region-year indicators.
+    array [n] int<lower=1, upper=n_years * n_regions> year_region = compress_index(year, region, n_years);
 }
 
 parameters {
@@ -19,13 +17,13 @@ parameters {
     real<lower=0> sigma;
 
     vector [n_years] d;
-    vector [n_region_year] g;
+    matrix [n_years, n_regions] g;
     real<lower=0> sigma_d, sigma_g_south, sigma_g_other;
 }
 
 transformed parameters {
     vector [n] predictor = a + X_national * b_national + X_state * b_state + d[year]
-        + g[region_year];
+        + to_vector(g)[year_region];
 }
 
 model {
@@ -35,8 +33,6 @@ model {
     b_state ~ normal(0, 100);
 
     d ~ normal(0, sigma_d);
-    // We don't need the zeros_vector here, and could just use the literal "0". But using the vector
-    // implicitly checks we haven't messed up the sizes of arrays.
-    g[:n_years] ~ normal(zeros_vector(n_years), sigma_g_south);
-    g[n_years + 1:] ~ normal(zeros_vector(n_years * (n_regions - 1)), sigma_g_other);
+    g[:, 1] ~ normal(0, sigma_g_south);
+    to_vector(g[:, 2:]) ~ normal(0, sigma_g_other);
 }
