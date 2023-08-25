@@ -1,6 +1,11 @@
 // Model for CBS poll results with non-nested hierarchical effects from page 381 of "Data Analysis
 // Using Regression and Multilevel/Hierarchical Models". The BUGS code is available at
 // http://www.stat.columbia.edu/~gelman/arm/examples/election88/election88.M2.bug.
+
+functions {
+    #include util.stan
+}
+
 #include data/election88.stan
 
 transformed data {
@@ -11,6 +16,8 @@ transformed data {
     X[:, 2] = female;
     X[:, 3] = black;
     X[:, 4] = female .* black;
+
+    array [n_responses] int<lower=1, upper=n_edus * n_ages> edu_age = compress_index(edu, age, n_edus);
 }
 
 parameters {
@@ -18,16 +25,16 @@ parameters {
     real b_v_prev;
     vector [n_ages] a_age;
     vector [n_edus] a_edu;
-    vector [n_ages * n_edus] a_age_edu;
+    matrix [n_edus, n_ages] a_edu_age;
     vector [n_regions] a_region;
     vector [n_states] a_state;
-    real<lower=0, upper=100> sigma_state, sigma_age, sigma_edu, sigma_age_edu, sigma_region;
+    real<lower=0, upper=100> sigma_state, sigma_age, sigma_edu, sigma_edu_age, sigma_region;
 
 }
 
 transformed parameters {
     vector [n_responses] logits = X * b + a_age[age] + a_edu[edu]
-        + a_age_edu[age_edu] + a_state[state];
+        + to_vector(a_edu_age)[edu_age] + a_state[state];
 }
 
 model {
@@ -38,7 +45,7 @@ model {
     a_state ~ normal(a_region[region] + b_v_prev * v_prev[region], sigma_state);
     a_age ~ normal(0, sigma_age);
     a_edu ~ normal(0, sigma_edu);
-    a_age_edu ~ normal(0, sigma_age_edu);
+    to_vector(a_edu_age) ~ normal(0, sigma_edu_age);
     a_region ~ normal(0, sigma_region);
 
     b ~ normal(0, 100);
