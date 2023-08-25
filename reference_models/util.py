@@ -30,10 +30,7 @@ class Experiment:
         Returns:
             Model and posterior samples.
         """
-        stanc_options = {
-            "include-paths": [Path(__file__).parent],
-        }
-        model = cmdstanpy.CmdStanModel(stan_file=self.stan_file, stanc_options=stanc_options)
+        model = cmdstanpy.CmdStanModel(stan_file=self.stan_file, stanc_options=get_stanc_options())
         data = self.data_loader(**self.data_loader_kwargs)
         fit = model.sample(data, **kwargs)
         return model, fit
@@ -51,3 +48,9 @@ def experiment_to_dict(*experiments: Experiment, root: Path | None = None) -> Di
             experiment.stan_file = root / experiment.stan_file
         result[experiment.name] = experiment
     return result
+
+
+def get_stanc_options() -> Dict:
+    return {
+        "include-paths": [Path(__file__).parent],
+    }
