@@ -8,4 +8,4 @@ pip-tools
 pytest
 pytest-cov
 pyaml
-git+https://github.com/tillahoffmann/snippets.git@a653161
+git+https://github.com/tillahoffmann/snippets.git@c1b1b7b

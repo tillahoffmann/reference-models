@@ -346,7 +346,7 @@ six==1.16.0
     #   rfc3339-validator
 sniffio==1.3.0
     # via anyio
-snippets @ git+https://github.com/tillahoffmann/snippets.git@a653161
+snippets @ git+https://github.com/tillahoffmann/snippets.git@c1b1b7b
     # via -r requirements.in
 soupsieve==2.4.1
     # via beautifulsoup4
