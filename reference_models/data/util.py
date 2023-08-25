@@ -16,7 +16,6 @@ def check_consecutive_labels(labels: np.ndarray, start: int = 1, end: int | None
     Returns:
         Checked labels.
     """
-    labels = np.asarray(labels)
     unique_labels = np.unique(labels)
     if end is None:
         end = unique_labels.max()

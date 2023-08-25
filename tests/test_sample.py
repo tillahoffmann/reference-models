@@ -21,7 +21,7 @@ def test_sample(collection: str, experiment: str, tmp_path: Path) -> None:
 
 
 def test_no_unused_stan_file() -> None:
-    stan_files = {stan_file.resolve() for stan_file in Path("reference_models").glob("**/*.stan")
+    stan_files = {stan_file.resolve() for stan_file in Path("reference_models").glob("*/**/*.stan")
                   if "data" not in stan_file.parts}
     used_stan_files = {experiment.stan_file for experiments in COLLECTIONS.values() for experiment
                        in experiments.values()}
