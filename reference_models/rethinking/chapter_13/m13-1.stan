@@ -1,4 +1,4 @@
-// Varying effects model for tadpole survival from page 402.
+/*Varying effects model for tadpole survival from page 402.*/
 #include data/reedfrogs.stan
 
 parameters {

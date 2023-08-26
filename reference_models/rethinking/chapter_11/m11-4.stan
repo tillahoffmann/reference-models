@@ -1,4 +1,4 @@
-// Model for prosocial behavior of chimpanzees with actor effects from page 330.
+/*Model for prosocial behavior of chimpanzees with actor effects from page 330.*/
 #include data/chimpanzees.stan
 
 parameters {

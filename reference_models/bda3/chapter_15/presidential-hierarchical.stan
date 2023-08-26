@@ -1,4 +1,4 @@
-// Hierarchical linear regression for forecasting presidential elections based on page 387.
+/*Hierarchical linear regression for forecasting presidential elections based on page 387.*/
 functions {
     #include util.stan
 }

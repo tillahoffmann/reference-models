@@ -1,5 +1,7 @@
-// Model for CBS poll results with state-level effects from page 302 of "Data Analysis Using
-// Regression and Multilevel/Hierarchical Models".
+/*
+Model for CBS poll results with state-level effects from page 302 of "Data Analysis Using Regression
+and Multilevel/Hierarchical Models".
+*/
 #include data/election88.stan
 
 parameters {

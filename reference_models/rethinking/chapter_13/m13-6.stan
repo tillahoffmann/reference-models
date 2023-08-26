@@ -1,5 +1,5 @@
-// Model for prosocial behavior of chimpanzees with actor and block effects and shrinkage prior on
-// treatment coefficients from page 419.
+/*Model for prosocial behavior of chimpanzees with actor and block effects and shrinkage prior on
+treatment coefficients from page 419.*/
 #include data/chimpanzees.stan
 
 parameters {

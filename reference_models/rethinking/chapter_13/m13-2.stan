@@ -1,4 +1,4 @@
-// Varying effects model for tadpole survival with shrinkage prior from page 403.
+/*Varying effects model for tadpole survival with shrinkage prior from page 403.*/
 #include data/reedfrogs.stan
 
 parameters {

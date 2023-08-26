@@ -1,4 +1,4 @@
-// Marginal model for ratings of morality form page 385.
+/*Marginal model for ratings of morality form page 385.*/
 #include data/trolley.stan
 
 parameters {

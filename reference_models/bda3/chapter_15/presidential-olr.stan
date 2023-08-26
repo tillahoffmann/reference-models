@@ -1,4 +1,4 @@
-// Ordinary linear regression for forecasting presidential elections based on page 385--386.
+/*Ordinary linear regression for forecasting presidential elections based on page 385--386.*/
 
 #include data/presidential.stan
 

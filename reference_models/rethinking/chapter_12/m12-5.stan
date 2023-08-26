@@ -1,4 +1,4 @@
-// Model for ratings of morality with scenario predictors form page 387.
+/*Model for ratings of morality with scenario predictors form page 387.*/
 #include data/trolley.stan
 
 parameters {

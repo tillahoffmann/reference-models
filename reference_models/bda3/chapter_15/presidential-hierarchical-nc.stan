@@ -1,5 +1,8 @@
-// Hierarchical linear regression for forecasting presidential elections based on page 387.
-// Year-effects have been non-centered.
+/*
+Hierarchical linear regression for forecasting presidential elections based on page 387.
+Year-effects have been non-centered.
+*/
+
 functions {
     #include util.stan
 }
