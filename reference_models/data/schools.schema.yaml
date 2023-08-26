@@ -1,0 +1,22 @@
+# yaml-language-server: $schema=http://json-schema.org/draft-07/schema
+description: >
+  Data on the effect of coaching programs on Stochastic Aptitude Test (Verbal) in each of eight high
+  schools described in Section 5.5 of "Bayesian Data Analysis" by Gelman et al. In each school, the
+  estimated coaching effect and its standard error were obtained by an analysis of covariance
+  adjustment (that is, a linear regression was performed of SAT-V on treatment group, using PSAT-M
+  and PSAT-V as control variables) appropriate for a completely randomized experiment. A separate
+  regresssion was estimated for each school.
+type: array
+minLength: 8
+maxLength: 8
+items:
+  type: object
+  properties:
+    y:
+      type: number
+      description: estimated treatment effect
+    sigma:
+      type: number
+      description: standard error of treatment effect
+      exclusiveMinimum: 0
+  additionalProperties: false
