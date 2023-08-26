@@ -1,10 +1,12 @@
-// Model for CBS poll results with non-nested hierarchical effects from based on page 381 of "Data
-// Analysis Using Regression and Multilevel/Hierarchical Models". The original BUGS code is
-// available at http://www.stat.columbia.edu/~gelman/arm/examples/election88/election88.M2.bug.
-// The model has been modified as follows:
-// - a_age, a_edu, and a_region are non-centered.
-// - The hierarchical prior on a_state given regional parameters has been moved to the `logits`.
-// - Features black, female, black-female interaction, and v_prev_full have been de-meaned.
+/*
+Model for CBS poll results with non-nested hierarchical effects from based on page 381 of "Data
+Analysis Using Regression and Multilevel/Hierarchical Models". The original BUGS code is
+available at http://www.stat.columbia.edu/~gelman/arm/examples/election88/election88.M2.bug.
+The model has been modified as follows:
+- a_age, a_edu, and a_region are non-centered.
+- The hierarchical prior on a_state given regional parameters has been moved to the `logits`.
+- Features black, female, black-female interaction, and v_prev_full have been de-meaned.
+*/
 functions {
     #include util.stan
 }

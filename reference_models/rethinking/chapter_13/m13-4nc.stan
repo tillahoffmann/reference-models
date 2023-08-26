@@ -1,5 +1,5 @@
-// Non-centered parameterization of model for prosocial behavior of chimpanzees with actor and block
-// effects from page 424.
+/*Non-centered parameterization of model for prosocial behavior of chimpanzees with actor and block
+effects from page 424.*/
 #include data/chimpanzees.stan
 
 parameters {

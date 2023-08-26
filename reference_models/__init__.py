@@ -1,8 +1,8 @@
-from . import bda3, hierarchical, rethinking
+from . import bda3, arm, rethinking
 
 
 COLLECTIONS = {
     "bda3": bda3.EXPERIMENTS,
-    "hierarchical": hierarchical.EXPERIMENTS,
+    "hierarchical": arm.EXPERIMENTS,
     "rethinking": rethinking.EXPERIMENTS,
 }

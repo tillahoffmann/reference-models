@@ -1,4 +1,4 @@
-// Centered model for eight schools based on section 15.5.
+/*Centered model for eight schools based on section 15.5.*/
 #include data/schools.stan
 
 parameters {

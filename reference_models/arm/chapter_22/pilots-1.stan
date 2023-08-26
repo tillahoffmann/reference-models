@@ -1,5 +1,7 @@
-// Two-way ANOVA fron page 495 based on
-// http://www.stat.columbia.edu/~gelman/arm/examples/pilots/pilots.1.bug.
+/*
+Two-way ANOVA fron page 495 based on
+http://www.stat.columbia.edu/~gelman/arm/examples/pilots/pilots.1.bug.
+*/
 
 #include data/pilots.stan
 

@@ -30,6 +30,8 @@ jobs:
         run: python -m cmdstanpy.install_cmdstan --version ${{ env.cmdstanVersion }}
       - name: Lint the code
         run: cook exec lint
+      - name: Build the documentation
+        run: cook exec docs
       - name: Run tests
         run: cook exec tests
       - name: Draw samples for one model to check `recipe.py`

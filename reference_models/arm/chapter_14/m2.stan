@@ -1,6 +1,8 @@
-// Model for CBS poll results with non-nested hierarchical effects from page 381 of "Data Analysis
-// Using Regression and Multilevel/Hierarchical Models". The BUGS code is available at
-// http://www.stat.columbia.edu/~gelman/arm/examples/election88/election88.M2.bug.
+/*
+Model for CBS poll results with non-nested hierarchical effects from page 381 of "Data Analysis
+Using Regression and Multilevel/Hierarchical Models". The BUGS code is available at
+http://www.stat.columbia.edu/~gelman/arm/examples/election88/election88.M2.bug.
+*/
 
 functions {
     #include util.stan
