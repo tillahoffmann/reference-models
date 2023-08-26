@@ -8,6 +8,7 @@
 .DS_Store
 .vscode
 __pycache__
+docs/_build
 playground/
 samples/
 venv/
