@@ -6,6 +6,7 @@ from sphinx.application import Sphinx
 import yaml
 
 
+project = "Reference Models"
 html_theme = "furo"
 extensions = [
     "myst_parser",
