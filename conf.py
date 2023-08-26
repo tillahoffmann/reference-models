@@ -13,6 +13,7 @@ extensions = [
 ]
 exclude_patterns = [
     ".pytest_cache",
+    "README.md",
     "venv",
 ]
 
