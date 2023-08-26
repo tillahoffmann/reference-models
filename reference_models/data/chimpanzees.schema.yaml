@@ -1,11 +1,13 @@
 # yaml-language-server: $schema=http://json-schema.org/draft-07/schema
 description: >
-  Prosocial behavior (or lack thereof) among seven chimpanzees described on page 325 of "Statistical
-  Rethinking"; the primary source is https://doi.org/10.1038/nature04243. The data were obtained
-  from https://github.com/rmcelreath/rethinking/blob/2f01a9c/data/chimpanzees.csv. This schema is
-  based on https://github.com/rmcelreath/rethinking/blob/2f01a9c/man/chimpanzees.Rd. The `recipient`
-  identifier has been re-coded by subtracting `1` as discussed in
-  https://github.com/rmcelreath/rethinking/issues/340.
+  Prosocial behavior (or lack thereof) among seven chimpanzees described on page 325 of
+  {doc}`rethinking`; the primary source is
+  [10.1038/nature04243](https://doi.org/10.1038/nature04243). The data were obtained from
+  [here](https://github.com/rmcelreath/rethinking/blob/2f01a9c/data/chimpanzees.csv), and this
+  schema is based on
+  [this documentation](https://github.com/rmcelreath/rethinking/blob/2f01a9c/man/chimpanzees.Rd).
+  In this dataset, the `recipient` identifier has been re-coded by subtracting `1` as discussed in
+  [rmcelreath/rethinking#340](https://github.com/rmcelreath/rethinking/issues/340).
 type: array
 # There are seven chimpanzees who can be paired as actor and possible recipient in 6 * 7 = 42
 # different ways. Each experiment *with* a recipient is interleaved with an experiment *without* a
