@@ -15,8 +15,8 @@ def load_data(exclude_1992: bool = True) -> dict:
 
     # Obtain the region identifier from metadata.
     with path.with_suffix(".schema.yaml").open() as fp:
-        metadata = yaml.safe_load(fp)
-    region_definitions = metadata["definitions"]["regions"]
+        schema = yaml.safe_load(fp)
+    region_definitions = schema["metadata"]["regions"]
     region_definitions = {state: region for region, states in region_definitions.items() for state
                           in states}
     region = raw.state.map(region_definitions.__getitem__)
@@ -31,6 +31,9 @@ def load_data(exclude_1992: bool = True) -> dict:
     X_state = raw[[col for col in raw if re.fullmatch(r"s\d+", col)]]
     X_regional = raw[[col for col in raw if re.fullmatch(r"r\d+", col)]]
 
+    region_by_state = pd.DataFrame({"state": state.values, "region": region.values}) \
+        .drop_duplicates().sort_values("state").region.values
+
     return {
         "n": len(raw),
         "n_states": state.nunique(),
@@ -43,4 +46,5 @@ def load_data(exclude_1992: bool = True) -> dict:
         "year": year,
         "region": region,
         "Dvote": raw.Dvote,
+        "region_by_state": region_by_state,
     }
