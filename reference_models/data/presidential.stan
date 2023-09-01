@@ -6,5 +6,6 @@ data {
     array [n] int<lower=1, upper=n_states> state;
     array [n] int<lower=1, upper=n_years> year;
     array [n] int<lower=1, upper=n_regions> region;
+    array [n_states] int<lower=1, upper=n_regions> region_by_state;
     vector<lower=0, upper=1> [n] Dvote;
 }

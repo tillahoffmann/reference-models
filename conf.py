@@ -50,6 +50,7 @@ class DiscoverModels(Directive):
             if not doc:
                 raise ValueError(f"missing documentation for stan_file `{stan_file}`")
             doc, = doc.groups()
+            # {collection}-{section}-{model}
             target = "-".join(stan_file.with_suffix('').parts[-3:])
             dataset_name = data_loader.__module__.split(".")[-1]
             lines.extend([
@@ -69,7 +70,7 @@ class DiscoverData(Directive):
 
     def run(self):
         loaders = {}
-        for collection, experiments in COLLECTIONS.items():
+        for experiments in COLLECTIONS.values():
             for experiment in experiments.values():
                 loaders.setdefault(experiment.data_loader, []).append(experiment.stan_file)
 
