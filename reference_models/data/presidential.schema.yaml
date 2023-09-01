@@ -4,14 +4,21 @@ description: |
   {doc}`bda3`. The data were obtained from
   [here](http://www.stat.columbia.edu/~gelman/book/data/presidential.asc) and converted to CSV for
   interoperability. This schema is based on the embedded data description and table 15.2. Regions in
-  the below `definitions` use state indices in alphabetic order starting at 1.
+  the below `metadata` use state indices in alphabetic order of the *name* of the state (rather
+  than it's two-letter code) starting at 1. Compared with the
+  [region assignment](https://en.wikipedia.org/wiki/List_of_regions_of_the_United_States) of the US
+  Census Bureau, the following states in the South have been moved to the North East: MD, DE, WV
+  (presumably to balance the sizes of regions).
 
   The value of the regional variable `r1` ('South') is 0 in non-Southern states. In Southern states,
   `r1 = 1` if the Democratic candidate for President is a Southerner, and `r1 = -1` if the
   Republican candidate for President is a Southerner. We set `r1 = 1` in 1964, 1976, 1980, 1992 and
   `r1 = -1` in 1964. For the purposes of this variable (and also the variable `r2`, 'South in 1964'),
   Southern states are AL, AR, FL, GA, LA, MS, NC, SC, TN, TX, VA (but not KY or OK).
-definitions:
+metadata:
+  states: [AL, AK, AZ, AR, CA, CO, CT, DE, FL, GA, HI, ID, IL, IN, IA, KS, KY, LA, ME, MD, MA, MI,
+    MN, MS, MO, MT, NE, NV, NH, NJ, NM, NY, NC, ND, OH, OK, OR, PA, RI, SC, SD, TN, TX, UT, VT, VA,
+    WA, WV, WI, WY]
   regions:
     northeast: [7, 8, 19, 20, 21, 29, 30, 32, 38, 39, 45, 48]
     midwest: [13, 14, 15, 16, 22, 23, 25, 27, 34, 35, 41, 49]
