@@ -9,6 +9,8 @@ on:
 
 env:
   cmdstanVersion: "2.32.2"
+  CC: clang
+  CXX: clang++
 
 jobs:
   build:
@@ -25,7 +27,7 @@ jobs:
       - uses: actions/cache@v3
         with:
           path: /home/runner/.cmdstan
-          key: cmdstan-${{ env.cmdstanVersion }}
+          key: cmdstan-${{ env.cmdstanVersion }}-${{ env.CC }}
       - name: Install cmdstanpy
         run: python -m cmdstanpy.install_cmdstan --version ${{ env.cmdstanVersion }}
       - name: Lint the code
