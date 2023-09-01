@@ -43,8 +43,9 @@ def __main__(argv: dict | None = None) -> None:
     model, fit = experiment.run(seed=args.seed, chains=args.chains, iter_warmup=args.iter_warmup,
                                 iter_sampling=args.iter_sampling)
 
-    # Save CSV files for later use.
+    # Save CSV files for later use and obtain metadata.
     src_info = model.src_info()
+    diagnostics = fit.diagnose()
     if args.output:
         # Remove the directory if it exists to avoid conflicting samples from different runs.
         if args.output.is_dir():
@@ -58,6 +59,7 @@ def __main__(argv: dict | None = None) -> None:
             yaml.dump({
                 "args": kwargs,
                 "src_info": src_info,
+                "diagnostics": diagnostics,
             }, fp)
 
     # Display summary information for "raw" parameters.
@@ -65,6 +67,9 @@ def __main__(argv: dict | None = None) -> None:
         summary = fit.summary()
         fltr = summary.index.map(lambda name: name.split("[")[0] in src_info["parameters"])
         print(summary[fltr])
+
+    # Display diagnostics.
+    print(diagnostics)
 
 
 if __name__ == "__main__":
