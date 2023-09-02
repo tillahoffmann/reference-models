@@ -1,4 +1,5 @@
 import jsonschema
+import numpy as np
 from pathlib import Path
 import pandas as pd
 import pytest
@@ -33,6 +34,15 @@ def test_presidential_state_region_assignment() -> None:
         region: {schema["metadata"]["states"][index - 1] for index in indices}
         for region, indices in schema["metadata"]["regions"].items()
     }
+def test_get_consecutive_labels() -> None:
+    # Test that labels get sorted before encoding to consecutive labels.
+    base = 7 + np.arange(10)
+    labels = np.random.permutation(np.repeat(base, 10))
+    consecutive, encoder = util.get_consecutive_labels(labels, return_encoder=True)
+    np.testing.assert_array_equal(encoder.classes_, base)
+    np.testing.assert_array_equal(consecutive, labels - 6)
+
+
 def test_group_by() -> None:
     items = list(enumerate("eabaccde"))
     expected = {
