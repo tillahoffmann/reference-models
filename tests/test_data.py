@@ -3,6 +3,7 @@ from pathlib import Path
 import pandas as pd
 import pytest
 import yaml
+from reference_models.data import util
 
 
 ROOT = Path("reference_models/data")
@@ -32,11 +33,14 @@ def test_presidential_state_region_assignment() -> None:
         region: {schema["metadata"]["states"][index - 1] for index in indices}
         for region, indices in schema["metadata"]["regions"].items()
     }
+def test_group_by() -> None:
+    items = list(enumerate("eabaccde"))
     expected = {
-        "west": {"WA", "OR", "CA", "NV", "AZ", "NM", "CO", "UT", "ID", "WY", "MT", "HI", "AK"},
-        "midwest": {"ND", "SD", "NE", "KS", "MO", "IA", "MN", "WI", "IL", "IN", "MI", "OH"},
-        "south": {"TX", "OK", "AR", "LA", "MS", "AL", "TN", "KY", "GA", "FL", "SC", "NC", "VA"},
-        "northeast": {"PA", "NY", "CT", "RI", "NH", "VT", "MA", "ME", "NJ", "MD", "DE", "WV"},
+        "e": [0, 7],
+        "a": [1, 3],
+        "b": [2],
+        "c": [4, 5],
+        "d": [6],
     }
-    assert sum(len(states) for states in expected.values()) == 50
-    assert actual == expected
+    assert util.group_by(items, 1, 0) == expected
+    assert util.group_by(items, lambda x: x[1], lambda x: x[0]) == expected
