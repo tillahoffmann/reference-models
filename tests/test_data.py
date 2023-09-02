@@ -10,6 +10,14 @@ from reference_models.data import util
 ROOT = Path("reference_models/data")
 DATASETS = ROOT.glob("*.csv")
 
+EXPECTED_STATES_BY_REGION = {
+    "west": {"WA", "OR", "CA", "NV", "AZ", "NM", "CO", "UT", "ID", "WY", "MT", "HI", "AK"},
+    "midwest": {"ND", "SD", "NE", "KS", "MO", "IA", "MN", "WI", "IL", "IN", "MI", "OH"},
+    "south": {"TX", "OK", "AR", "LA", "MS", "AL", "TN", "KY", "GA", "FL", "SC", "NC", "VA"},
+    "northeast": {"PA", "NY", "CT", "RI", "NH", "VT", "MA", "ME", "NJ", "MD", "DE", "WV"},
+    "dc": {"DC"},
+}
+
 
 @pytest.mark.parametrize("dataset_path", DATASETS, ids=lambda path: path.name)
 def test_dataset(dataset_path: Path) -> None:
@@ -34,6 +42,20 @@ def test_presidential_state_region_assignment() -> None:
         region: {schema["metadata"]["states"][index - 1] for index in indices}
         for region, indices in schema["metadata"]["regions"].items()
     }
+    assert actual == {key: value for key, value in EXPECTED_STATES_BY_REGION.items() if key != "dc"}
+
+
+def test_election88_state_region_assignment() -> None:
+    with (ROOT / "election88.schema.yaml").open() as fp:
+        schema = yaml.safe_load(fp)
+
+    actual = {
+        region: {schema["metadata"]["states"][index - 1] for index in indices}
+        for region, indices in schema["metadata"]["regions"].items()
+    }
+    assert actual == EXPECTED_STATES_BY_REGION
+
+
 def test_get_consecutive_labels() -> None:
     # Test that labels get sorted before encoding to consecutive labels.
     base = 7 + np.arange(10)
