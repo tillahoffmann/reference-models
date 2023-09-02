@@ -8,6 +8,7 @@
 .DS_Store
 .vscode
 __pycache__
+docker-samples/
 docs/_build
 playground/
 samples/

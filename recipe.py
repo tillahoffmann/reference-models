@@ -54,3 +54,21 @@ with create_group("samples"):
             ]
             create_task(f"{task_name}:dependence", targets=[heatmap_target],
                         dependencies=[sample_target], action=action)
+
+
+configs = [
+    ("2.32.2", "clang", "clang++"),
+    ("2.32.2", "gcc", "g++"),
+    ("2.33.0-rc1", "clang", "clang++"),
+    ("2.33.0-rc1", "gcc", "g++"),
+]
+for cmdstan_version, cc, cxx in configs:
+    tag = f"{cmdstan_version}-{cc}"
+    action = [
+        "docker", "build", "-t", tag, "--build-arg", f"CMDSTAN_VERSION={cmdstan_version}",
+        "--build-arg", f"CC={cc}", "--build-arg", f"CXX={cxx}", "--progress=plain", ".",
+    ]
+    docker_image = create_task(f"docker-image:{tag}", action=action)
+    action = f"docker run --rm -it -v `pwd`/docker-samples/{tag}:/workdir/samples " \
+        f"-e CMDSTAN_COMPILE=force {tag} time cook exec samples"
+    create_task(f"docker-samples:{tag}", action=action, task_dependencies=[docker_image])

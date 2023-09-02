@@ -1,0 +1,10 @@
+.cook
+.coverage*
+*.egg-info
+.git
+.ipynb_checkpoints
+.pytest_cache
+docker-samples
+playground
+samples
+venv
