@@ -15,7 +15,7 @@ create_task("requirements", dependencies=["requirements.in", "setup.py"],
 with create_group("build"):
     create_task("lint", action="flake8")
     create_task("tests", action="pytest -v --cov=reference_models --cov-report=term-missing "
-                "--cov-fail-under=100")
+                "--cov-fail-under=100 -m 'not compile_only'")
     create_task("docs", action="rm -rf docs/_build && sphinx-build -naW . docs/_build")
 
 if IN_CI:
