@@ -40,8 +40,10 @@ def __main__(argv: dict | None = None) -> None:
     experiment = args.experiments[args.experiment]
 
     # Compile the model and draw samples.
-    model, fit = experiment.run(seed=args.seed, chains=args.chains, iter_warmup=args.iter_warmup,
-                                iter_sampling=args.iter_sampling)
+    model, fit, times = experiment.run(
+        seed=args.seed, chains=args.chains, iter_warmup=args.iter_warmup,
+        iter_sampling=args.iter_sampling
+    )
 
     # Save CSV files for later use and obtain metadata.
     src_info = model.src_info()
@@ -60,6 +62,7 @@ def __main__(argv: dict | None = None) -> None:
                 "args": kwargs,
                 "src_info": src_info,
                 "diagnostics": diagnostics,
+                "times": times,
             }, fp)
 
     # Display summary information for "raw" parameters.

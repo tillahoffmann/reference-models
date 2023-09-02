@@ -1,5 +1,7 @@
 import cmdstanpy
+import os
 from pathlib import Path
+from time import time
 from typing import Callable, Dict, Tuple
 
 
@@ -30,10 +32,18 @@ class Experiment:
         Returns:
             Model and posterior samples.
         """
-        model = cmdstanpy.CmdStanModel(stan_file=self.stan_file, stanc_options=get_stanc_options())
+        start = time()
+        model = cmdstanpy.CmdStanModel(stan_file=self.stan_file, stanc_options=get_stanc_options(),
+                                       compile=os.environ.get("CMDSTAN_COMPILE", True))
+        compile_time = time() - start
         data = self.data_loader(**self.data_loader_kwargs)
+        start = time()
         fit = model.sample(data, **kwargs)
-        return model, fit
+        sample_time = time() - start
+        return model, fit, {
+            "compile_time": compile_time,
+            "sample_time": sample_time,
+        }
 
 
 def experiment_to_dict(*experiments: Experiment, root: Path | None = None) -> Dict[str, Experiment]:
