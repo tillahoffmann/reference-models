@@ -1,13 +1,20 @@
 import cmdstanpy
 from pathlib import Path
 import pytest
-from reference_models import COLLECTIONS, sample
+from reference_models import COLLECTIONS, sample, util
 
 
 SPECS = [
     (collection, experiment) for collection, experiments in COLLECTIONS.items() for experiment in
     experiments
 ]
+
+
+@pytest.mark.parametrize("collection, experiment", SPECS)
+@pytest.mark.compile_only
+def test_compile_model(collection: str, experiment: str) -> None:
+    stan_file = COLLECTIONS[collection][experiment].stan_file
+    cmdstanpy.CmdStanModel(stan_file=stan_file, stanc_options=util.get_stanc_options())
 
 
 @pytest.mark.parametrize("collection, experiment", SPECS)
