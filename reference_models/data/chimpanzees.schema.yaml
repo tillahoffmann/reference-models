@@ -1,18 +1,26 @@
 # yaml-language-server: $schema=http://json-schema.org/draft-07/schema
-description: >
+description: |
   Prosocial behavior (or lack thereof) among seven chimpanzees described on page 325 of
   {doc}`rethinking`; the primary source is
-  [10.1038/nature04243](https://doi.org/10.1038/nature04243). The data were obtained from
+  [10.1038/nature04243](https://doi.org/10.1038/nature04243). In this suite of experiments, a focal
+  chimpanzee (actor) is presented with two levers that can be pulled. One lever will deliver an item
+  of food to the actor only. The other lever will also deliver an item of food to the other side of
+  the table which may or may not be occupied by another chimpanzee (recipient). This setup
+  was repeated in six blocks (corresponding to different days) for all pairs of seven chimpanzees
+  (both as actor and recipient). Each experiment *with* a recipient was interleaved with an
+  experiment *without* a recipient. The dataset thus comprises
+  `[6 blocks] * [7 actors] * ([6 recipients] + [6 empty seats]) = 504` experiments. The motivation
+  for the experiments was to assess whether the chimpanzees would change their behavior if a
+  recipient is present, e.g., choosing the prosocial option that delivers food to a fellow
+  chimpanzee.
+
+  The data were obtained from
   [here](https://github.com/rmcelreath/rethinking/blob/2f01a9c/data/chimpanzees.csv), and this
   schema is based on
   [this documentation](https://github.com/rmcelreath/rethinking/blob/2f01a9c/man/chimpanzees.Rd).
-  In this dataset, the `recipient` identifier has been re-coded by subtracting `1` as discussed in
+  In this dataset, the `recipient` identifier has been re-coded by subtracting `1` as suggested by
   [rmcelreath/rethinking#340](https://github.com/rmcelreath/rethinking/issues/340).
 type: array
-# There are seven chimpanzees who can be paired as actor and possible recipient in 6 * 7 = 42
-# different ways. Each experiment *with* a recipient is interleaved with an experiment *without* a
-# recipient, giving rise to another 42 configurations for a total of 84. This setup is repeated over
-# the course of six days for a total of 6 * 84 = 504 records.
 minLength: 504
 maxLength: 504
 items:
