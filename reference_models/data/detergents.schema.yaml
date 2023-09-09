@@ -6,6 +6,7 @@ description: |
   source is [10.2307/1392011](https://doi.org/10.2307/1392011). The data were obtained from the
   [`bayesm` package](https://cran.r-project.org/package=bayesm) and converted to CSV for
   interoperability.
+license: GPL >= 2
 type: array
 minLength: 2657
 maxLength: 2657
