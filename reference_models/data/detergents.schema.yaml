@@ -1,0 +1,50 @@
+# yaml-language-server: $schema=http://json-schema.org/draft-07/schema
+description: |
+  Liquid detergent purchasing decisions in the two-year period spanning the first week of July 1986
+  to July 16th of 1988 in Sioux Falls, South Dakota. The dataset includes the top six national
+  brands in terms of volume, accounting for 81% of the market share for national brands. The primary
+  source is [10.2307/1392011](https://doi.org/10.2307/1392011). The data were obtained from the
+  [`bayesm` package](https://cran.r-project.org/package=bayesm) and converted to CSV for
+  interoperability.
+license: GPL >= 2
+type: array
+minLength: 2657
+maxLength: 2657
+items:
+  type: object
+  properties:
+    choice:
+      type: string
+      description: Brand purchased by the consumer.
+      enum:
+      - Tide
+      - Wisk
+      - EraPlus
+      - Surf
+      - Solo
+      - All
+    Tide:
+      type: number
+      description: Price of the product in $ per oz.
+      minimum: 0
+    Wisk:
+      type: number
+      description: Price of the product in $ per oz.
+      minimum: 0
+    EraPlus:
+      type: number
+      description: Price of the product in $ per oz.
+      minimum: 0
+    Surf:
+      type: number
+      description: Price of the product in $ per oz.
+      minimum: 0
+    Solo:
+      type: number
+      description: Price of the product in $ per oz.
+      minimum: 0
+    All:
+      type: number
+      description: Price of the product in $ per oz.
+      minimum: 0
+  additionalProperties: false
