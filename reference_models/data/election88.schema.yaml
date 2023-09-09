@@ -13,6 +13,7 @@ description: |
   The data were obtained from
   [here](https://github.com/stan-dev/example-models/blob/a4cf8b7/ARM/Ch.14/election88_full.data.R)
   and converted to CSV for interoperability.
+license: unknown
 metadata:
   states: [AL, AK, AZ, AR, CA, CO, CT, DE, DC, FL, GA, HI, ID, IL, IN, IA, KS, KY, LA, ME, MD, MA,
     MI, MN, MS, MO, MT, NE, NV, NH, NJ, NM, NY, NC, ND, OH, OK, OR, PA, RI, SC, SD, TN, TX, UT, VT,

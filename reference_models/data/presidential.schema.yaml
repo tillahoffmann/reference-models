@@ -15,6 +15,7 @@ description: |
   Republican candidate for President is a Southerner. We set `r1 = 1` in 1964, 1976, 1980, 1992 and
   `r1 = -1` in 1964. For the purposes of this variable (and also the variable `r2`, 'South in 1964'),
   Southern states are AL, AR, FL, GA, LA, MS, NC, SC, TN, TX, VA (but not KY or OK).
+license: unknown
 metadata:
   states: [AL, AK, AZ, AR, CA, CO, CT, DE, FL, GA, HI, ID, IL, IN, IA, KS, KY, LA, ME, MD, MA, MI,
     MN, MS, MO, MT, NE, NV, NH, NJ, NM, NY, NC, ND, OH, OK, OR, PA, RI, SC, SD, TN, TX, UT, VT, VA,

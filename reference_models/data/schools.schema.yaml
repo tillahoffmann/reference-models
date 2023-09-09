@@ -5,7 +5,9 @@ description: >
   its standard error were obtained by an analysis of covariance adjustment (that is, a linear
   regression was performed of SAT-V on treatment group, using PSAT-M and PSAT-V as control
   variables) appropriate for a completely randomized experiment. A separate regression was estimated
-  for each school.
+  for each school. Data were obtained from table 1 of
+  [10.2307/1164617](https://doi.org/10.2307/1164617).
+license: unknown
 type: array
 minLength: 8
 maxLength: 8

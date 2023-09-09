@@ -20,6 +20,7 @@ description: |
   [this documentation](https://github.com/rmcelreath/rethinking/blob/2f01a9c/man/chimpanzees.Rd).
   In this dataset, the `recipient` identifier has been re-coded by subtracting `1` as suggested by
   [rmcelreath/rethinking#340](https://github.com/rmcelreath/rethinking/issues/340).
+license: GPL >= 3
 type: array
 minLength: 504
 maxLength: 504
