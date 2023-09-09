@@ -6,6 +6,7 @@ description: >
   The data were obtained from
   [here](http://www.stat.columbia.edu/~gelman/arm/examples/pilots/pilots.dat) and converted to CSV
   for interoperability.
+license: unknown
 type: array
 minLength: 301
 maxLength: 301

@@ -24,7 +24,10 @@ def test_dataset(dataset_path: Path) -> None:
     # Load the corresponding schema.
     schema_path = dataset_path.with_suffix(".schema.yaml")
     with schema_path.open() as fp:
-        schema = yaml.safe_load(fp)
+        schema: dict = yaml.safe_load(fp)
+
+    # Ensure the schema has license information.
+    assert schema.get("license")
 
     # Load and validate the data. We replace `nan` with `None` for json schema validation.
     dataset = pd.read_csv(dataset_path).replace(float("nan"), None)
