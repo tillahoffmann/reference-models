@@ -48,6 +48,43 @@ def test_presidential_state_region_assignment() -> None:
     assert actual == {key: value for key, value in EXPECTED_STATES_BY_REGION.items() if key != "dc"}
 
 
+def test_presidential_national_variables() -> None:
+    presidential = pd.read_csv(ROOT / "presidential.csv")
+    # Incumbent indicator (+1 for Democrat, -1 for Republican).
+    inc = np.sign(presidential.groupby("year").n2.first())
+    np.testing.assert_array_equal(inc, [
+        1,  # 1948; Truman vs Warren -> Truman.
+        1,  # 1952; Eisenhower vs Stevenson -> Eisenhower.
+        -1,  # 1956; Eisenhower vs Stevenson -> Eisenhower.
+        -1,  # 1960; JFK vs Nixon -> JFK; then Johnson after JFK assassination.
+        1,  # 1964; Johnson vs Goldwater -> Johnson.
+        1,  # 1968; Nixon vs Humphrey -> Nixon.
+        -1,  # 1972; Nixon vs McGovern -> Nixon then Ford after Nixon resignation.
+        -1,  # 1976; Ford vs Carter -> Crater.
+        1,  # 1980; Carter vs Reagan -> Reagan.
+        -1,  # 1984; Reagan vs Mondale -> Reagan.
+        -1,  # 1988; Bush vs Dukakis -> Bush.
+        -1,  # 1992; Bush vs Clinton -> Clinton.
+    ])
+    # "presinc" indicator equal to the incumbent indicator if the incubment is running for
+    # re-election.
+    presinc = np.sign(presidential.groupby("year").n3.first())
+    np.testing.assert_array_equal(presinc, [
+        1,
+        0,
+        -1,
+        0,
+        1,
+        0,
+        -1,
+        0,
+        1,
+        -1,
+        0,
+        -1,
+    ])
+
+
 def test_election88_state_region_assignment() -> None:
     with (ROOT / "election88.schema.yaml").open() as fp:
         schema = yaml.safe_load(fp)
