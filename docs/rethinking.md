@@ -1,5 +1,5 @@
 Statistical Rethinking
 ======================
 
-```{discover_models}  rethinking
+```{discover_models} rethinking
 ```
