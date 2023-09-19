@@ -23,9 +23,9 @@ if IN_CI:
     iter_warmup = 10
     chains = 1
 else:
-    iter_sampling = 100
-    iter_warmup = 500
-    chains = 2
+    iter_sampling = 500
+    iter_warmup = 1000
+    chains = 4
 
 # Generate samples for all models matching the folder structure of the models.
 with create_group("samples"):
