@@ -37,6 +37,8 @@ class Experiment:
                                        compile=os.environ.get("CMDSTAN_COMPILE", True))
         compile_time = time() - start
         data = self.data_loader(**self.data_loader_kwargs)
+        if isinstance(data, tuple):
+            data, *_ = data
         start = time()
         fit = model.sample(data, **kwargs)
         sample_time = time() - start
