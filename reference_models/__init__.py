@@ -1,8 +1,9 @@
-from . import bda3, arm, rethinking
+from . import arm, bda3, misc, rethinking
 
 
 COLLECTIONS = {
-    "bda3": bda3.EXPERIMENTS,
     "arm": arm.EXPERIMENTS,
+    "bda3": bda3.EXPERIMENTS,
+    "misc": misc.EXPERIMENTS,
     "rethinking": rethinking.EXPERIMENTS,
 }
