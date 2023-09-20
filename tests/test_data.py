@@ -116,3 +116,9 @@ def test_group_by() -> None:
     }
     assert util.group_by(items, 1, 0) == expected
     assert util.group_by(items, lambda x: x[1], lambda x: x[0]) == expected
+
+
+def test_pres_vote_historical() -> None:
+    pres_vote_historical = pd.read_csv(ROOT / "pres_vote_historical.csv")
+    np.testing.assert_array_less(pres_vote_historical.dem + pres_vote_historical.rep,
+                                 pres_vote_historical.total + 1e-6)
