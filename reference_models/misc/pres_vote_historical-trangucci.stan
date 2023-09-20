@@ -6,6 +6,10 @@ modifications to variable names, changes to comply with recent Stan syntax, and 
 improvements. Generated quantities for actual forecasting are omitted here--future work.
 */
 
+functions {
+    #include util.stan
+}
+
 data {
     int<lower=1> n, n_states, n_regions, n_years;
     array [n_states] int<lower=1, upper=n_regions> state_region_ind;
@@ -23,6 +27,8 @@ transformed data {
     for (t in 1:n_years) {
         years[t] = t;
     }
+    array [n] int year_state_ind = compress_index(year_ind, state_ind, n_years);
+    array [n] int year_region_ind = compress_index(year_ind, region_ind, n_years);
 }
 
 parameters {
@@ -76,12 +82,9 @@ transformed parameters {
     }
 
     // Evaluate the linear predictor.
-    vector[n] obs_mu;
-    for (i in 1:n) {
-        obs_mu[i] = inv_logit(mu + year_re[year_ind[i]] + state_re[state_ind[i]]
-            + region_re[region_ind[i]] + gp_region[year_ind[i], region_ind[i]]
-            + gp_state[year_ind[i], state_ind[i]]);
-    }
+    vector[n] obs_mu = inv_logit(mu + year_re[year_ind] + state_re[state_ind]
+        + region_re[region_ind] + to_vector(gp_region)[year_region_ind]
+        + to_vector(gp_state)[year_state_ind]);
 }
 
 model {
