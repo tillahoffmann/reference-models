@@ -1,0 +1,34 @@
+# yaml-language-server: $schema=http://json-schema.org/draft-07/schema
+description: >
+  Measurement of radon levels in houses in each of the 85 counties in Minnesota as described on
+  p. 3 and p. 254 of {doc}`arm`.
+license: unknown
+type: array
+minLength: 919
+maxLength: 919
+items:
+  type: object
+  properties:
+    radon:
+      type: number
+      description: radon measurement
+      minimum: 0
+    x:
+      type: integer
+      description: floor indicator (0 indicates basement, 1 indicates first floor)
+      minimum: 0
+      maximum: 1
+    y:
+      type: number
+      description: log-transformed radon measurement (using {math}`\log(0.1)` if the {code}`radon`
+        measurement is 0)
+      minimum: -2.303
+    county:
+      type: integer
+      description: county in which the house is situated
+      minimum: 1
+      maximum: 85
+    u:
+      type: number
+      description: log-transformed county-level soil uranium measurement
+  additionalProperties: false
