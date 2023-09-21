@@ -1,0 +1,37 @@
+# yaml-language-server: $schema=http://json-schema.org/draft-07/schema
+description: >
+  Yield of plots of [millet](https://en.wikipedia.org/wiki/Millet) in grams arranged in a 5 by 5
+  [latin square experiment](https://en.wikipedia.org/wiki/Latin_square) discussed on page 292 of
+  {doc}`arm`. Data were extracted from figure 13.11. The primary source is table 14.10.2 on page
+  270 of "Statistical Methods" by Snedecor and Cochran (1989). Treatments correspond to different
+  spacings of plants (treatment A corresponds to 2 inch spacing, B to 4 inches, etc.). Rows and
+  columns correspond to physical space and their order is important because "there is often a
+  gradient in fertility running parallel to one side of the field and sometimes gradients running
+  parallel to both sides." (Snedecor and Cochran, p. 268).
+license: unknown
+type: array
+minLength: 25
+maxLength: 25
+items:
+  type: object
+  properties:
+    row_idx:
+      type: integer
+      minimum: 1
+      maximum: 5
+    col_idx:
+      type: integer
+      minimum: 1
+      maximum: 5
+    treatment:
+      type: string
+      enum:
+      - A
+      - B
+      - C
+      - D
+      - E
+    yield:
+      type: integer
+      exclusiveMinimum: 0
+  additionalProperties: false
