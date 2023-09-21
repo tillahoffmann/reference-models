@@ -14,13 +14,16 @@ class Experiment:
         data_loader: Callable that returns data as a dictionary for cmstanpy.
         data_loader_kwargs: Keyword arguments supplied to :code:`data_loader`.
         name: Unique name of the experiment (inferred from :code:`stan_file` if not given).
+        sample_kwargs: Keyword arguments passed to :meth:`cmdstanpy.CmdStanModel.sample`.
     """
     def __init__(self, stan_file: Path | str, data_loader: Callable[..., Dict],
-                 data_loader_kwargs: Dict | None = None, name: str | None = None) -> None:
+                 data_loader_kwargs: Dict | None = None, name: str | None = None,
+                 sample_kwargs: Dict | None = None) -> None:
         self.stan_file = Path(stan_file)
         self.data_loader = data_loader
         self.data_loader_kwargs = data_loader_kwargs or {}
         self.name = name or self.stan_file.with_suffix("").name
+        self.sample_kwargs = sample_kwargs or {}
 
     def run(self, **kwargs) -> Tuple[cmdstanpy.CmdStanModel, cmdstanpy.CmdStanMCMC]:
         """
@@ -40,7 +43,7 @@ class Experiment:
         if isinstance(data, tuple):
             data, *_ = data
         start = time()
-        fit = model.sample(data, **kwargs)
+        fit = model.sample(data, **(self.sample_kwargs | kwargs))
         sample_time = time() - start
         return model, fit, {
             "compile_time": compile_time,

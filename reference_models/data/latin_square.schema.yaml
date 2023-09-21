@@ -1,0 +1,31 @@
+# yaml-language-server: $schema=http://json-schema.org/draft-07/schema
+description: >
+  Crop yields in a 5 by 5 latin square experiment discussed on page 292 of {doc}`bda3`. Data were
+  extracted from figure 13.11.
+license: unknown
+type: array
+minLength: 25
+maxLength: 25
+items:
+  type: object
+  properties:
+    row_idx:
+      type: integer
+      minimum: 1
+      maximum: 5
+    col_idx:
+      type: integer
+      minimum: 1
+      maximum: 5
+    treatment:
+      type: string
+      enum:
+      - A
+      - B
+      - C
+      - D
+      - E
+    yield:
+      type: integer
+      exclusiveMinimum: 0
+  additionalProperties: false
