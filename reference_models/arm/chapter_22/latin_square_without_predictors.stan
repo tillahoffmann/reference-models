@@ -1,6 +1,6 @@
 /*
 Non-centered variant of the ANOVA model for latin square experiment from equation 22.6 on page 497
-of {doc}`arm`. This is a simplified version of {ref}`arm/chapter_13/latin_square_with_predictors`,
+of {doc}`arm`. This is a simplified version of {ref}`arm-chapter_13-latin_square_with_predictors`,
 not including linear predictors for rows, columns, or treatments.
 */
 
