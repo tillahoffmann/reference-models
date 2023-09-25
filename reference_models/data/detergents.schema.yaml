@@ -8,8 +8,8 @@ description: |
   interoperability.
 license: GPL >= 2
 type: array
-minLength: 2657
-maxLength: 2657
+minItems: 2657
+maxItems: 2657
 items:
   type: object
   properties:

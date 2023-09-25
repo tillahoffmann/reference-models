@@ -10,8 +10,8 @@ description: >
   parallel to both sides." (Snedecor and Cochran, p. 268).
 license: unknown
 type: array
-minLength: 25
-maxLength: 25
+minItems: 25
+maxItems: 25
 items:
   type: object
   properties:

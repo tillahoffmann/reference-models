@@ -4,8 +4,8 @@ description: >
   p. 3 and p. 254 of {doc}`arm`.
 license: unknown
 type: array
-minLength: 919
-maxLength: 919
+minItems: 919
+maxItems: 919
 items:
   type: object
   properties:

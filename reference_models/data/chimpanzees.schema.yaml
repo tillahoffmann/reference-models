@@ -22,8 +22,8 @@ description: |
   [rmcelreath/rethinking#340](https://github.com/rmcelreath/rethinking/issues/340).
 license: GPL >= 3
 type: array
-minLength: 504
-maxLength: 504
+minItems: 504
+maxItems: 504
 items:
   type: object
   properties:
