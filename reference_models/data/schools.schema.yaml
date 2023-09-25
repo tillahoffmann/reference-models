@@ -9,8 +9,8 @@ description: >
   [10.2307/1164617](https://doi.org/10.2307/1164617).
 license: unknown
 type: array
-minLength: 8
-maxLength: 8
+minItems: 8
+maxItems: 8
 items:
   type: object
   properties:

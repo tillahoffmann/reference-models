@@ -25,8 +25,8 @@ metadata:
     south: [1, 4, 10, 11, 18, 19, 25, 34, 37, 41, 43, 44, 47]
     dc: [9]
 type: array
-minLength: 11565
-maxLength: 11565
+minItems: 11566
+maxItems: 11566
 items:
   type: object
   properties:

@@ -7,7 +7,10 @@ description: |
   for the article). He notes that the model is "'dumb'" in that it uses nothing more than past vote
   totals and a forecast of the 2016 vote" (in contrast to {ref}`data-presidential` which also
   includes covariates such as economic performance). State groups are extracted from Andrew's blog
-  post. DC is included in the dataset but not used in the definition of regions.
+  post. DC is included in the dataset but not used in the definition of regions. Data were obtained
+  from
+  [here](https://github.com/stan-dev/stancon_talks/blob/affbbcbcb2b260ce5d816f79a9e69a48a8a64fdb/2017/Contributed-Talks/08_trangucci/data_pres_forecast/pres_vote_historical.RDS)
+  and converted to CSV for interoperability.
 license: unknown
 metadata:
   regions:
@@ -22,8 +25,8 @@ metadata:
     southwest: [AZ, CO, NM, NV]
     west_coast: [WA, OR, CA, HI]
 type: array
-minLength: 594
-maxLength: 594
+minItems: 561
+maxItems: 561
 items:
   type: object
   properties:

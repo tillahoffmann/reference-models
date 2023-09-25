@@ -7,8 +7,8 @@ description: >
   [this documentation](https://github.com/rmcelreath/rethinking/blob/2f01a9c/man/reedfrogs.Rd).
 license: GPL >= 3
 type: array
-minLength: 48
-maxLength: 48
+minItems: 48
+maxItems: 48
 items:
   type: object
   properties:

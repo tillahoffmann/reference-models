@@ -8,8 +8,8 @@ description: >
   for interoperability.
 license: unknown
 type: array
-minLength: 301
-maxLength: 301
+minItems: 301
+maxItems: 301
 items:
   type: object
   properties:

@@ -8,8 +8,8 @@ description: >
   [this documentation](https://github.com/rmcelreath/rethinking/blob/2f01a9c/man/Trolley.Rd).
 license: GPL >= 3
 type: array
-minLength: 9930
-maxLength: 9930
+minItems: 9930
+maxItems: 9930
 items:
   type: object
   properties:
