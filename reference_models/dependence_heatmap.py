@@ -1,4 +1,5 @@
 import argparse
+import arviz
 import cmdstanpy
 from matplotlib import pyplot as plt
 from pathlib import Path
@@ -32,8 +33,8 @@ def __main__(argv: List[str] | None = None) -> None:
 
     # Obtain samples.
     samples = fit.stan_variables()
+    src_info = metadata["src_info"]
     if not args.all:
-        src_info = metadata["src_info"]
         samples = {key: value for key, value in samples.items() if key in src_info["parameters"]}
 
     # Plot the heatmap.
@@ -45,6 +46,11 @@ def __main__(argv: List[str] | None = None) -> None:
         fig.savefig(args.output)
     else:
         plt.show(block=True)
+
+    # Report the WAIC if `log_lik` is available.
+    if "log_lik" in src_info["generated quantities"]:
+        waic = arviz.waic(arviz.from_cmdstanpy(fit))
+        print(f"WAIC: {waic}")
 
 
 if __name__ == "__main__":
