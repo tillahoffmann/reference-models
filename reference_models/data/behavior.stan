@@ -9,13 +9,13 @@ data {
     array [N] int id;
     array [N] int house_id;
     array [N] int month_id;
-    array [N] real age_z;
-    array [N] real age_zq;
-    array [N] real wz;
-    array [N] real sunday;
-    array [N] real saturday;
-    array [N] real time_z;
-    array [N] real time_zq;
-    array [N] real house_size_z;
-    array [N] real rain_z;
+    vector [N] age_z;
+    vector [N] age_zq;
+    vector [N] wz;
+    vector [N] sunday;
+    vector [N] saturday;
+    vector [N] time_z;
+    vector [N] time_zq;
+    vector [N] house_size_z;
+    vector [N] rain_z;
 }
