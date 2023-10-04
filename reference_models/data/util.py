@@ -28,10 +28,33 @@ def check_consecutive_labels(labels: np.ndarray, start: int = 1, end: int | None
     return labels
 
 
-def get_consecutive_labels(labels: np.ndarray, start: int = 1, return_encoder: bool = False) \
+def get_consecutive_labels(labels: np.ndarray, start: int = 1, return_encoder: bool = False,
+                           preserve_order: bool = False) \
         -> np.ndarray | Tuple[np.ndarray, LabelEncoder]:
+    """
+    Convert categorical features to consecutive integer labels.
+
+    Args:
+        labels: Labels to convert.
+        start: First integer label.
+        return_encoder: Return the fitted encoder, e.g., for converting back to the original labels.
+        preserve_order: Preserve the order of labels such that the integers labels represent the
+            first appearance of a label.
+
+    Returns:
+        Consecutive integer labels if :code:`return_encoder is False` else a tuple of consecutive
+        integer labels and a :class:`~sklearn.preprocessing.LabelEncoder` instance.
+    """
     encoder = LabelEncoder()
-    labels = encoder.fit_transform(labels) + start
+    if preserve_order:
+        classes = []
+        for label in labels:
+            if label not in classes:
+                classes.append(label)
+        encoder.classes_ = np.asarray(classes)
+    else:
+        encoder.fit(labels)
+    labels = encoder.transform(labels) + start
     return (labels, encoder) if return_encoder else labels
 
 
