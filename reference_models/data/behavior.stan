@@ -18,4 +18,7 @@ data {
     vector [N] time_zq;
     vector [N] house_size_z;
     vector [N] rain_z;
+
+    // Fixed effects as a matrix for vectorization.
+    matrix [N, 9] X;
 }

@@ -17,6 +17,11 @@ def load_data() -> dict:
     age, house_size, log_wealth, rain, time = StandardScaler().fit_transform(np.transpose([
         raw.age, raw.dynamic_house_size, np.log(raw.wealth), raw.rain, raw.time.apply(_parse_time),
     ])).T
+    saturday = (raw.day == "Saturday").astype(float)
+    sunday = (raw.day == "Sunday").astype(float)
+    X = np.transpose([
+        age, age ** 2, log_wealth, sunday, saturday, time, time ** 2, house_size, rain
+    ])
 
     return {
         "N": len(raw),
@@ -35,6 +40,7 @@ def load_data() -> dict:
         "rain_z": rain,
         "house_size_z": house_size,
         "wz": log_wealth,
-        "saturday": (raw.day == "Saturday").astype(float),
-        "sunday": (raw.day == "Sunday").astype(float),
+        "saturday": saturday,
+        "sunday": sunday,
+        "X": X,
     }

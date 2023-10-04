@@ -4,10 +4,6 @@ Model for behavioral data with individual-level random effects and fixed effects
 
 #include data/behavior.stan
 
-transformed data {
-    matrix [N, 9] X = [age_z', age_zq', wz', sunday', saturday', time_z', time_zq', house_size_z', rain_z']';
-}
-
 parameters {
     vector [K - 1] a;                // intercepts for each behavior
     matrix [9, K - 1] b;  // fixed effects
