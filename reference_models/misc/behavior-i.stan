@@ -1,3 +1,7 @@
+/*
+Model for behavioral data with individual-level random effects only.
+*/
+
 #include data/behavior.stan
 
 parameters{

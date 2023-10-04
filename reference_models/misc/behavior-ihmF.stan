@@ -1,3 +1,8 @@
+/*
+Model for behavioral data with individual-level, household-level, and monthly random effects as well
+as fixed effects.
+*/
+
 #include data/behavior.stan
 
 parameters {

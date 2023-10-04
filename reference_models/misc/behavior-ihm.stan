@@ -1,4 +1,10 @@
+/*
+Model for behavioral data with individual-level, household-level, and monthly random effects but no
+fixed effects.
+*/
+
 #include data/behavior.stan
+
 parameters{
     array [K-1] real a;                  // intercepts for each behavior
     matrix[K-1,N_id] z_id;      		// matrix of indiv-level standardized random effects
