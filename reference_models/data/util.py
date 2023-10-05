@@ -1,10 +1,28 @@
 import numpy as np
+import pandas as pd
 from sklearn.preprocessing import LabelEncoder
 from typing import Callable, Container, Dict, Hashable, Iterable, Optional, Tuple, Type, TypeVar, \
     Union
 
 
 T = TypeVar("T")
+
+
+class OrderedLabelEncoder(LabelEncoder):
+    """
+    Label encoder for consecutive integers preserving the order of first occurrence.
+    """
+    def fit(self, y: np.ndarray) -> "OrderedLabelEncoder":
+        classes = []
+        for x in y:
+            if x not in classes:
+                classes.append(x)
+        self.classes_ = np.asarray(classes)
+        return self
+
+    def transform(self, y: np.ndarray) -> np.ndarray:
+        lookup = pd.Series(np.arange(self.classes_.size), self.classes_)
+        return lookup[y]
 
 
 def check_consecutive_labels(labels: np.ndarray, start: int = 1, end: int | None = None) \
@@ -45,15 +63,8 @@ def get_consecutive_labels(labels: np.ndarray, start: int = 1, return_encoder: b
         Consecutive integer labels if :code:`return_encoder is False` else a tuple of consecutive
         integer labels and a :class:`~sklearn.preprocessing.LabelEncoder` instance.
     """
-    encoder = LabelEncoder()
-    if preserve_order:
-        classes = []
-        for label in labels:
-            if label not in classes:
-                classes.append(label)
-        encoder.classes_ = np.asarray(classes)
-    else:
-        encoder.fit(labels)
+    encoder = OrderedLabelEncoder() if preserve_order else LabelEncoder()
+    encoder.fit(labels)
     labels = encoder.transform(labels) + start
     return (labels, encoder) if return_encoder else labels
 
