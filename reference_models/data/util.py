@@ -1,10 +1,28 @@
 import numpy as np
+import pandas as pd
 from sklearn.preprocessing import LabelEncoder
 from typing import Callable, Container, Dict, Hashable, Iterable, Optional, Tuple, Type, TypeVar, \
     Union
 
 
 T = TypeVar("T")
+
+
+class OrderedLabelEncoder(LabelEncoder):
+    """
+    Label encoder for consecutive integers preserving the order of first occurrence.
+    """
+    def fit(self, y: np.ndarray) -> "OrderedLabelEncoder":
+        classes = []
+        for x in y:
+            if x not in classes:
+                classes.append(x)
+        self.classes_ = np.asarray(classes)
+        return self
+
+    def transform(self, y: np.ndarray) -> np.ndarray:
+        lookup = pd.Series(np.arange(self.classes_.size), self.classes_)
+        return lookup[y]
 
 
 def check_consecutive_labels(labels: np.ndarray, start: int = 1, end: int | None = None) \
@@ -28,10 +46,26 @@ def check_consecutive_labels(labels: np.ndarray, start: int = 1, end: int | None
     return labels
 
 
-def get_consecutive_labels(labels: np.ndarray, start: int = 1, return_encoder: bool = False) \
+def get_consecutive_labels(labels: np.ndarray, start: int = 1, return_encoder: bool = False,
+                           preserve_order: bool = False) \
         -> np.ndarray | Tuple[np.ndarray, LabelEncoder]:
-    encoder = LabelEncoder()
-    labels = encoder.fit_transform(labels) + start
+    """
+    Convert categorical features to consecutive integer labels.
+
+    Args:
+        labels: Labels to convert.
+        start: First integer label.
+        return_encoder: Return the fitted encoder, e.g., for converting back to the original labels.
+        preserve_order: Preserve the order of labels such that the integers labels represent the
+            first appearance of a label.
+
+    Returns:
+        Consecutive integer labels if :code:`return_encoder is False` else a tuple of consecutive
+        integer labels and a :class:`~sklearn.preprocessing.LabelEncoder` instance.
+    """
+    encoder = OrderedLabelEncoder() if preserve_order else LabelEncoder()
+    encoder.fit(labels)
+    labels = encoder.transform(labels) + start
     return (labels, encoder) if return_encoder else labels
 
 

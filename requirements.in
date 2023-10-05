@@ -1,4 +1,5 @@
 -e file:.
+arviz
 cook-build
 flake8
 furo

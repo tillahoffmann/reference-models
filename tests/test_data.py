@@ -104,6 +104,13 @@ def test_get_consecutive_labels() -> None:
     np.testing.assert_array_equal(encoder.classes_, base)
     np.testing.assert_array_equal(consecutive, labels - 6)
 
+    # Test that labels do not get sorted if preserve_order is set.
+    labels = list("bbazzb")
+    consecutive = util.get_consecutive_labels(labels, preserve_order=True)
+    np.testing.assert_array_equal(consecutive, [1, 1, 2, 3, 3, 1])
+    consecutive = util.get_consecutive_labels(labels, preserve_order=False)
+    np.testing.assert_array_equal(consecutive, [2, 2, 1, 3, 3, 2])
+
 
 def test_group_by() -> None:
     items = list(enumerate("eabaccde"))

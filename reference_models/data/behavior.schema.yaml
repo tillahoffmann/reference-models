@@ -1,0 +1,113 @@
+# yaml-language-server: $schema=http://json-schema.org/draft-07/schema
+description: |
+  Observational data on the activities of 45 adolescent and adult males in a community of indigenous
+  Nicaraguan horticulturalists collected over a twelve-month period in 2004--2005.
+
+  Data were obtained from the third electronic supplement to
+  [10.1007/s00265-017-2363-8](https://doi.org/10.1007/s00265-017-2363-8).
+license: unknown
+type: array
+minItems: 2793
+maxItems: 2793
+items:
+  type: object
+  properties:
+    record_id:
+      description: unique record identifier
+      type: integer
+      minimum: 1
+      maximum: 2793
+    time_slot:
+      description: n-th observation of the day (scheduled 30 mins apart with the first randomly
+        scheduled between 5:30 and 6:00; the last observation was no later than 18:00)
+      type: integer
+      minimum: 1
+      maximum: 25
+    house:
+      description: household identifier
+      type: integer
+      minimum: 1
+      maximum: 31
+    date:
+      description: date in American mm/dd/yy format
+      type: string
+      pattern: "1?\\d/[123]?\\d/0[45]"
+    day:
+      description: day of the week
+      type: string
+      enum:
+        - Monday
+        - Tuesday
+        - Wednesday
+        - Thursday
+        - Friday
+        - Saturday
+        - Sunday
+    month:
+      description: month of the year
+      type: integer
+      minimum: 1
+      maximum: 12
+    time:
+      description: time in 24-hour format
+      type: string
+      pattern: "[12]?\\d:[012345]\\d"
+    subject_id:
+      description: person identifier
+      type: integer
+      minimum: 1
+      maximum: 45
+    age:
+      description: age in years
+      type: integer
+      minimum: 13
+      maximum: 67
+    response:
+      description: activity at the time of observation
+      type: string
+      enum:
+        # Activities including clearing fields, planting, weeding, and harvesting crops
+        - agriculture
+        # Cooking, laundering clothes, cleaning the residence, bringing water, etc.
+        - domestic
+        # Extended time at makeshift upstream residences, involving overnights
+        - finca
+        # Either collecting firewood from forest or chopping firewood in community
+        - firewood
+        # Excursions specifically devoted to fishing
+        - fishing
+        # Either preparing sites or actively panning for gold in streams around community
+        - gold
+        # Excursions devoted specifically to hunting activities, not opportunistic hunting
+        - hunting
+        # Either direct care of domestic animals or preparation of pastures and shelters
+        - livestock
+        # Constructions of items such as dugout canoes, residences, or homemade tools
+        - manufacture
+        # Involves community labor, errands, providing routine assistance to others
+        - other_work
+        # Attending school as a student
+        - school
+        # Regular employment as a schoolteacher, contract worker, or project assistant
+        - steady_job
+        # Working for pay locally, including clearance of fields and construction tasks
+        - wage
+        # Non-work reference level for idleness, sleeping, leisure, church, socializing, etc.
+        - z
+    dynamic_house_size:
+      description: number of residents in the household of the observed individual at the time of
+        the observation (distinction with `static_house_size` unclear)
+      type: integer
+    static_house_size:
+      description: household size (distinction with `dynamic_house_size` unclear)
+      type: integer
+    wealth:
+      description: value of household possesions in Nicaraguan currency
+      type: number
+      minimum: 0
+    rain:
+      description: average monthly rainfall in mm recorded at a nearby weather station for the month
+        in which the observation occurred
+      type: number
+      minimum: 0
+  additionalProperties: false

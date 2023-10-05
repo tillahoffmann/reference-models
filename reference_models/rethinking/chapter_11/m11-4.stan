@@ -16,3 +16,10 @@ model {
     a ~ normal(0, 1.5);
     b ~ normal(0, 0.5);
 }
+
+generated quantities {
+    vector [n_experiments] log_lik;
+    for (i in 1:n_experiments) {
+        log_lik[i] = bernoulli_logit_lpmf(pulled_left[i] | logits[i]);
+    }
+}
